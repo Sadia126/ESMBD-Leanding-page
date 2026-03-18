@@ -1,11 +1,10 @@
-import Navbar from "../src/components/Home/Navbar/Navbar"
 import Hero from "../src/components/Home/hero/hero"
 import SaleCountDown from "../src/components/Home/saleCount/saleCountDown"
-import Feature from "../src/components/Home/feature/feature"
-import Delivery from "../src/components/Home/delivery/delivery"
+import FeaturedProducts from "../src/components/Home/FeaturedProducts/FeaturedProducts"
+import OrderForm from "../src/components/Home/Order/OrderForm"
 import Testimonial from "../src/components/Home/testimonial/testimonial"
 import Footer from "../src/components/Home/footer/footer"
-import React from 'react'
+import Navbar from "../src/components/Home/Navbar/Navbar"
 
 const Home = () => {
   return (
@@ -13,8 +12,8 @@ const Home = () => {
       <Navbar/>
       <Hero/>
       <SaleCountDown/>
-      <Feature/>
-      <Delivery/>
+      <FeaturedProducts/>
+      <OrderForm/>
       <Testimonial/>
       <Footer/>
     </div>

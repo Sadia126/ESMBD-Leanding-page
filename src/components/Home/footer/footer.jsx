@@ -31,7 +31,7 @@ export default function Footer() {
         {/* Brand Info */}
         <div>
           <div className="flex-1 items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center border border-white/10">
+            <div className="w-10 h-10 bg-linear-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center border border-white/10">
               <ShoppingCart className="w-5 h-5 text-primary-color" />
             </div>
             <div>

@@ -43,7 +43,7 @@ const products = [
 export default function FeaturedProducts() {
   return (
     <section className="bg-[#080808] px-[4%] py-20 min-h-screen">
-      
+
       {/* Header Section */}
       <div className="text-center mb-16">
         <span className="inline-block bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">
@@ -60,9 +60,9 @@ export default function FeaturedProducts() {
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 max-w-[1200px] mx-auto">
         {products.map((product) => (
-          <div 
+          <div
             key={product.id}
-            className="group relative bg-[#11151c] border border-white/5 rounded-[2rem] p-6 transition-all duration-300 hover:border-[#d4af37]/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+            className="group relative bg-[#11151c] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:border-[#d4af37]/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
           >
             {/* Discount Badge */}
             <div className="absolute top-5 left-5 z-10 bg-red-600 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-lg">
@@ -70,7 +70,7 @@ export default function FeaturedProducts() {
             </div>
 
             {/* Product Image Area */}
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl mb-6 bg-[#0a0c12]">
+            <div className="relative aspect-4/5 w-full overflow-hidden rounded-2xl mb-6 bg-[#0a0c12]">
               <Image
                 src={product.image}
                 alt={product.name}
@@ -79,7 +79,7 @@ export default function FeaturedProducts() {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
               />
               {/* Overlay on hover */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0c12] via-transparent to-transparent opacity-60"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-[#0a0c12] via-transparent to-transparent opacity-60"></div>
             </div>
 
             {/* Product Info */}
@@ -90,7 +90,7 @@ export default function FeaturedProducts() {
               <p className="text-gray-500 text-xs leading-relaxed mb-4">
                 {product.description}
               </p>
-              
+
               <div className="flex items-baseline gap-3 pt-2">
                 <span className="text-2xl font-bold text-[#d4af37]">
                   ৳{product.price}
@@ -103,11 +103,12 @@ export default function FeaturedProducts() {
 
             {/* Order Button */}
             <Link
-              href={`/order/${product.id}`}
+              href={`/?productId=${product.id}#order`}
               className="mt-6 w-full flex items-center justify-center bg-[#d4af37] hover:bg-[#b8962f] text-black text-sm font-bold py-4 rounded-xl transition-all active:scale-95 shadow-lg"
             >
               Order Now
             </Link>
+
           </div>
         ))}
       </div>

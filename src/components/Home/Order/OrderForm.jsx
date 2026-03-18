@@ -1,0 +1,283 @@
+"use client";
+import { useEffect, useState } from 'react';
+import { Minus, Plus, CreditCard, ImageIcon } from 'lucide-react';
+import { useParams, useSearchParams } from 'next/navigation';
+const products = [
+  {
+    id: 1,
+    name: "Royal Panjabi Edition",
+    description: "Premium cotton silk blend with intricate embroidery",
+    price: 4999,
+    oldPrice: 7000,
+    discount: 30,
+    image: "https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?q=80&w=500", // কাপড়ের ডামি ছবি
+  },
+  {
+    id: 2,
+    name: "Elite Slim-Fit Shirt",
+    description: "Egyptian Giza cotton, wrinkle-free formal wear",
+    price: 2499,
+    oldPrice: 3800,
+    discount: 35,
+    image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=500",
+  },
+  {
+    id: 3,
+    name: "Classic Denim Jacket",
+    description: "Heavyweight indigo denim with shearling lining",
+    price: 3999,
+    oldPrice: 6500,
+    discount: 40,
+    image: "https://images.unsplash.com/photo-1551537482-f2075a1d41f2?q=80&w=500",
+  },
+  {
+    id: 4,
+    name: "Modern Casual Wear",
+    description: "Comfortable breathable fabric for daily use",
+    price: 1500,
+    oldPrice: 2200,
+    discount: 20,
+    image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=500",
+  },
+];
+export default function OrderForm() {
+  const [quantity, setQuantity] = useState(1);
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    district: "",
+    city: "",
+    address: ""
+  })
+  const params = useSearchParams()
+  const id = params.get("productId")
+  const productObj = products.find((product) => product.id === Number(id))
+  let product = productObj ? JSON.stringify(productObj) : null
+  const [selectedProduct, setSelectedProduct] = useState(product);
+  const [paymentMethod, setPaymentMethod] = useState("cod");
+
+  useEffect(() => {
+    if (id) {
+      const pObj = products.find((p) => p.id === Number(id));
+      if (pObj) {
+        setSelectedProduct(JSON.stringify(pObj));
+      }
+    }
+  }, [id]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("অর্ডার সফলভাবে গ্রহণ করা হয়েছে!");
+    const productObj = JSON.parse(selectedProduct)
+    const product = { ...productObj, productId: productObj.id }
+    console.log({ ...form, ...product, quantity, paymentMethod })
+  };
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+  }
+  // delevery charge claculation 
+  let deliveryCharge;
+  if (form.district.toLocaleLowerCase() === "dhaka") {
+    deliveryCharge = 60;
+  } else {
+    deliveryCharge = 120;
+  }
+  return (
+    <>
+      <section id={`order`} className="w-full min-h-screen bg-[#0a0c12] text-white py-12 px-4 md:px-10 lg:px-20">
+
+        {/* Header */}
+        <div className="w-full text-center mb-12">
+          <span className="border border-[#d4af37] text-[#d4af37] px-6 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.2em]">
+            Premium Checkout
+          </span>
+          <h1 className="text-4xl md:text-6xl font-serif font-bold mt-6 mb-4">
+            Complete Your <span className="text-[#d4af37]">Purchase</span>
+          </h1>
+          <p className="text-gray-400 max-w-2xl mx-auto italic">
+            আপনার পছন্দের ঘড়িটি অর্ডার করতে নিচের ফর্মটি সঠিক তথ্য দিয়ে পূরণ করুন।
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-400 mx-auto">
+
+          {/* Left Side: Product Configuration & Details */}
+          <div className="lg:col-span-7 space-y-8">
+            <div className="bg-[#11151c] border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+              <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                <ImageIcon className="text-[#d4af37] w-5 h-5" /> Product Settings
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Product Image Link */}
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-gray-500">Product Image URL</label>
+                  <input
+                    type="text"
+                    name='image'
+                    disabled={true}
+                    value={JSON.parse(selectedProduct)?.image || ''}
+                    className="w-full bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-3 focus:border-primary-color outline-none"
+                  />
+                </div>
+
+                {/* Set Price */}
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-gray-500">Unit Price (৳)</label>
+                  <input
+                    type="number"
+                    disabled
+                    value={JSON.parse(selectedProduct)?.price}
+                    className="w-full bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-3 focus:border-primary-color outline-none text-primary-color font-bold"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                {/* Image Preview */}
+                <div className="aspect-square w-full max-w-50 bg-[#0a0c12] rounded-xl border border-dashed border-gray-700 flex items-center justify-center overflow-hidden">
+                  {JSON.parse(selectedProduct)?.image ? (
+                    <img src={JSON.parse(selectedProduct)?.image} alt="Preview" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="text-gray-600 text-xs text-center p-4">Image Preview</div>
+                  )}
+                </div>
+                {/* product Dropdwon  */}
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase text-gray-500">Select Product</label>
+                  <select
+                    value={selectedProduct || ""}
+                    onChange={(e) => setSelectedProduct(e.target.value)}
+                    className="w-full bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-3 focus:border-[#d4af37] outline-none"
+                  >
+                    <option disabled value="">Select Product</option>
+                    {products.map((product) => (
+                      <option key={product.id} value={JSON.stringify(product)}>
+                        {product.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Quantity Selector */}
+                <div className="space-y-3">
+                  <label className="text-xs font-bold uppercase text-gray-500">Select Quantity</label>
+                  <div className="flex items-center gap-4">
+                    <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-3 bg-gray-800 rounded-full hover:bg-gray-700 transition"><Minus size={18} /></button>
+                    <span className="text-3xl font-bold w-12 text-center">{quantity}</span>
+                    <button type="button" onClick={() => setQuantity(quantity + 1)} className="p-3 bg-gray-800 rounded-full hover:bg-gray-700 transition"><Plus size={18} /></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Delivery Information */}
+            <div className="bg-[#11151c] border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+              <h3 className="text-xl font-semibold mb-6">Delivery Details</h3>
+              <div className="space-y-4">
+                <div className='flex justify-between'>
+                  {/* name */}
+                  <label className="text-xs font-bold uppercase text-gray-500">Full Name
+                    <input required type="text" value={form.name} onChange={handleChange} name="name" placeholder="Full Name" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
+                  </label>
+                  {/* phone */}
+                  <label className="text-xs font-bold uppercase text-gray-500">Phone Number
+                    <input required type="tel" value={form.phone} onChange={handleChange} name="phone" placeholder="Phone Number" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
+                  </label>
+
+                </div>
+                <div className='flex justify-between'>
+                  {/* district */}
+                  <label className="text-xs font-bold uppercase text-gray-500">District
+                    <input required type="text" value={form.district} onChange={handleChange} name="district" placeholder="District" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
+                  </label>
+                  {/* city */}
+                  <label className="text-xs font-bold uppercase text-gray-500">City
+                    <input required type="text" value={form.city} onChange={handleChange} name="city" placeholder="City" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
+                  </label>
+
+                </div>
+
+                <label htmlFor="address" className="text-xs font-bold uppercase text-gray-500">Full Address (Area, City, House No)</label>
+                <textarea required rows={3} value={form.address} onChange={handleChange} name="address" id="address" placeholder="Full Address (Area, City, House No)" className="w-full bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none resize-none"></textarea>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side: Payment & Order Summary */}
+          <div className="lg:col-span-5 space-y-8">
+            <div className="bg-[#11151c] border border-[#d4af37]/30 rounded-2xl p-6 md:p-8 shadow-2xl sticky top-8">
+              <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                <CreditCard className="text-[#d4af37] w-5 h-5" /> Payment Method
+              </h3>
+
+              {/* Payment Options */}
+              <div className="grid grid-cols-1 gap-3 mb-8">
+                {[
+                  { id: 'cod', label: 'Cash on Delivery', sub: 'পণ্য হাতে পেয়ে টাকা দিন' },
+                  { id: 'bkash', label: 'bKash Payment', sub: '01626420774 (Send Money)' },
+                  { id: 'nagad', label: 'Nagad Payment', sub: '01626420774 (Send Money)' }
+                ].map((method) => (
+                  <label
+                    key={method.id}
+                    className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${paymentMethod === method.id ? 'border-[#d4af37] bg-[#d4af37]/10' : 'border-gray-800 bg-[#0a0c12]'}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        name="payment"
+                        value={method.id}
+                        checked={paymentMethod === method.id}
+                        onChange={(e) => setPaymentMethod(e.target.value)}
+                        className="accent-[#d4af37] w-4 h-4"
+                      />
+                      <div>
+                        <p className="font-bold text-sm">{method.label}</p>
+                        <p className="text-[10px] text-gray-500">{method.sub}</p>
+                      </div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+
+              {/* Transaction ID Field (Only shows for bkash/nagad) */}
+              {paymentMethod !== 'cod' && (
+                <div className="mb-6 animate-in fade-in slide-in-from-top-2">
+                  <label className="text-xs font-bold uppercase text-[#d4af37] block mb-2">Transaction ID *</label>
+                  <input
+                    required
+                    type="text"
+                    placeholder="Enter TrxID (e.g. 8N7X6W5Q)"
+                    className="w-full bg-[#0a0c12] border border-[#d4af37]/50 rounded-lg px-4 py-3 focus:ring-1 focus:ring-[#d4af37] outline-none text-white font-mono"
+                  />
+                </div>
+              )}
+
+              {/* Price Summary */}
+              <div className="border-t border-gray-800 pt-6 mt-6 space-y-4">
+                <div className="flex justify-between text-gray-400">
+                  <span>Subtotal</span>
+                  <span>৳{JSON.parse(selectedProduct) ? JSON.parse(selectedProduct)?.price * quantity : 0}</span>
+                </div>
+                <div className="flex justify-between text-gray-400">
+                  <span>Delivery Fee</span>
+                  <span className="text-green-500">{form.district ? deliveryCharge : 0}</span>
+                </div>
+                <div className="flex justify-between text-2xl font-bold border-t border-gray-800 pt-4">
+                  <span>Total</span>
+                  <span className="text-primary-color">৳{JSON.parse(selectedProduct) ? JSON.parse(selectedProduct)?.price * quantity : 0}</span>
+                </div>
+              </div>
+
+              <button type="submit" className={`w-full ${form.district === "" ? "bg-accent/20 cursor-not-allowed text-accent-content/50" : "bg-primary-color hover:bg-[#b8962f] text-accent"} py-5 font-bold rounded-xl mt-8 transition-transform active:scale-95 shadow-[0_10px_30px_rgba(212,175,55,0.2)]`}>
+                CONFIRM ORDER NOW
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </>
+  );
+}

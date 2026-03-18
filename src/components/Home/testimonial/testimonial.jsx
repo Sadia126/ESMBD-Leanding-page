@@ -112,7 +112,7 @@ export default function Testimonials() {
             key={i}
             className={`relative rounded-2xl p-7 border transition-all hover:-translate-y-1 ${
               t.featured
-                ? "bg-gradient-to-br from-primary-color/8 to-primary-color/3 border-primary-color/25"
+                ? "bg-linear-to-br from-primary-color/8 to-primary-color/3 border-primary-color/25"
                 : "bg-white/3 border-white/8 hover:border-primary-color/25"
             }`}
           >
