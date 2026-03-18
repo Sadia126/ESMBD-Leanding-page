@@ -52,8 +52,8 @@ export default function OrderForm() {
   const params = useSearchParams()
   const id = params.get("productId")
   const productObj = products.find((product) => product.id === Number(id))
-  let product = productObj ? JSON.stringify(productObj) : null
-  const [selectedProduct, setSelectedProduct] = useState(product);
+  let initalProduct = productObj ? JSON.stringify(productObj) : null
+  const [selectedProduct, setSelectedProduct] = useState(initalProduct);
   const [paymentMethod, setPaymentMethod] = useState("cod");
 
   useEffect(() => {
@@ -68,7 +68,15 @@ export default function OrderForm() {
     e.preventDefault();
     alert("অর্ডার সফলভাবে গ্রহণ করা হয়েছে!");
     const productObj = JSON.parse(selectedProduct)
-    const product = { ...productObj, productId: productObj.id }
+    const product =
+    {
+      name: productObj.name,
+      discount: productObj.discount,
+      image: productObj.image,
+      sellerPrice: productObj.oldPrice,
+      price: productObj.price,
+      productId: productObj.id
+    }
     console.log({ ...form, ...product, quantity, paymentMethod })
   };
   const handleChange = (e) => {
@@ -179,28 +187,28 @@ export default function OrderForm() {
               <div className="space-y-4">
                 <div className='flex justify-between'>
                   {/* name */}
-                  <label className="text-xs font-bold uppercase text-gray-500">Full Name
+                  <label className="text-xs font-bold uppercase text-accent-content">Full Name
                     <input required type="text" value={form.name} onChange={handleChange} name="name" placeholder="Full Name" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
                   </label>
                   {/* phone */}
-                  <label className="text-xs font-bold uppercase text-gray-500">Phone Number
+                  <label className="text-xs font-bold uppercase text-accent-content">Phone Number
                     <input required type="tel" value={form.phone} onChange={handleChange} name="phone" placeholder="Phone Number" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
                   </label>
 
                 </div>
                 <div className='flex justify-between'>
                   {/* district */}
-                  <label className="text-xs font-bold uppercase text-gray-500">District
+                  <label className="text-xs font-bold uppercase text-accent-content">District
                     <input required type="text" value={form.district} onChange={handleChange} name="district" placeholder="District" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
                   </label>
                   {/* city */}
-                  <label className="text-xs font-bold uppercase text-gray-500">City
+                  <label className="text-xs font-bold uppercase text-accent-content">City
                     <input required type="text" value={form.city} onChange={handleChange} name="city" placeholder="City" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
                   </label>
 
                 </div>
 
-                <label htmlFor="address" className="text-xs font-bold uppercase text-gray-500">Full Address (Area, City, House No)</label>
+                <label htmlFor="address" className="text-xs font-bold uppercase text-accent-content">Full Address (Area, City, House No)</label>
                 <textarea required rows={3} value={form.address} onChange={handleChange} name="address" id="address" placeholder="Full Address (Area, City, House No)" className="w-full bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none resize-none"></textarea>
               </div>
             </div>
