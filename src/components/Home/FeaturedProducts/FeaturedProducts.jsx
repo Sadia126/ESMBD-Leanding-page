@@ -1,46 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getProducts } from "@/action/product";
 
-const products = [
-  {
-    id: 1,
-    name: "Royal Panjabi Edition",
-    description: "Premium cotton silk blend with intricate embroidery",
-    price: "4,999",
-    oldPrice: "7,000",
-    discount: "-30%",
-    image: "https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?q=80&w=500", // কাপড়ের ডামি ছবি
-  },
-  {
-    id: 2,
-    name: "Elite Slim-Fit Shirt",
-    description: "Egyptian Giza cotton, wrinkle-free formal wear",
-    price: "2,499",
-    oldPrice: "3,800",
-    discount: "-35%",
-    image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=500",
-  },
-  {
-    id: 3,
-    name: "Classic Denim Jacket",
-    description: "Heavyweight indigo denim with shearling lining",
-    price: "3,999",
-    oldPrice: "6,500",
-    discount: "-40%",
-    image: "https://images.unsplash.com/photo-1551537482-f2075a1d41f2?q=80&w=500",
-  },
-  {
-    id: 4,
-    name: "Modern Casual Wear",
-    description: "Comfortable breathable fabric for daily use",
-    price: "1,500",
-    oldPrice: "2,200",
-    discount: "-20%",
-    image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=500",
-  },
-];
-
-export default function FeaturedProducts() {
+export default async function FeaturedProducts() {
+  const products = await getProducts();
   return (
     <section id="products" className="bg-[#080808] px-[4%] py-20 min-h-screen">
 
@@ -61,7 +24,7 @@ export default function FeaturedProducts() {
       <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 max-w-[1200px] mx-auto">
         {products.map((product) => (
           <div
-            key={product.id}
+            key={product._id}
             className="group relative bg-[#11151c] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:border-[#d4af37]/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
           >
             {/* Discount Badge */}
@@ -103,7 +66,7 @@ export default function FeaturedProducts() {
 
             {/* Order Button */}
             <Link
-              href={`/?productId=${product.id}#order`}
+              href={`/?productId=${product._id}#order`}
               className="mt-6 w-full flex items-center justify-center bg-[#d4af37] hover:bg-[#b8962f] text-black text-sm font-bold py-4 rounded-xl transition-all active:scale-95 shadow-lg"
             >
               Order Now

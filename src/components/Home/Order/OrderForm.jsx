@@ -290,7 +290,7 @@ export default function OrderForm() {
                 </div>
                 <div className="flex justify-between text-2xl font-bold border-t border-gray-800 pt-4">
                   <span>Total</span>
-                  <span className="text-primary-color">৳{JSON.parse(selectedProduct) ? JSON.parse(selectedProduct)?.price * quantity : 0}</span>
+                  <span className="text-primary-color">৳{JSON.parse(selectedProduct) ? JSON.parse(selectedProduct)?.price * quantity + deliveryCharge : 0}</span>
                 </div>
               </div>
 
