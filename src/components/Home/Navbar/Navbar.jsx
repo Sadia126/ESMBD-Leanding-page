@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { ShoppingCart, LayoutDashboard } from "lucide-react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../../../app/api/auth/[...nextauth]/route";
+import AuthButton from "@/components/Shared/Buttons/AuthButton";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const session = await getServerSession(authOptions)
+  const user = session?.user || null
   return (
     <nav className="sticky top-0 z-50 bg-black/85 backdrop-blur-2xl border-b border-white/8 shadow-2xl shadow-black/40">
       <div className="flex items-center justify-between px-[4%] py-3">
@@ -21,13 +26,8 @@ export default function Navbar() {
         </Link>
 
         {/* Dashboard Button */}
-        <Link
-          href="/dashboard"
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary-color border border-primary-color text-accent text-sm font-semibold hover:bg-base-700 transition-all"
-        >
-          <LayoutDashboard className="w-4 h-4" />
-          Dashboard
-        </Link>
+       <AuthButton user={user}/>
+       
 
       </div>
     </nav>
