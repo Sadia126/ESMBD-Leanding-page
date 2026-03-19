@@ -37,7 +37,7 @@ const SaleCountDown = () => {
         <p className="inline-block px-3 py-1 rounded-full text-sm mb-3 bg-[#622c1c] text-[#F8C8A0]">
           🔥 Limited Time Only
         </p>
-        <h1 className="text-4xl font-bold mb-2 text-white">
+        <h1 className="text-2xl md:text-4xl font-bold mb-2 text-white">
           Limited Time Offer - Up to 40% Off!
         </h1>
         <p className="mb-8 text-[#B0B0B0] text-lg">

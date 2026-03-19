@@ -26,11 +26,11 @@ export default function Footer() {
      
 
       {/* ===== MAIN GRID ===== */}
-      <div className="px-[4%] py-6 flex justify-between gap-10">
+      <div className="px-[4%] py-6 flex flex-col md:flex-row justify-between gap-10">
 
         {/* Brand Info */}
         <div>
-          <div className="flex-1 items-center gap-3 mb-4">
+          <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 bg-linear-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center border border-white/10">
               <ShoppingCart className="w-5 h-5 text-primary-color" />
             </div>

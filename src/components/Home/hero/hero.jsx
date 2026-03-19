@@ -90,7 +90,7 @@ export default function Hero() {
             </div>
 
             {/* Card Content Overlay */}
-            <div className="absolute bottom-10 left-10 right-10">
+            <div className="hidden md:block absolute bottom-10 left-10 right-10">
               <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl">
                 <h3 className="text-white font-bold text-xl mb-2">Curated Collections</h3>
                 <p className="text-gray-400 text-sm mb-5 leading-snug">Explore hand-picked items tailored for your lifestyle.</p>
