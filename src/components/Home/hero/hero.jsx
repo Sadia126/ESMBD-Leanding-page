@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image"; 
 import { ShoppingBag,ArrowRight, Zap } from "lucide-react";
+import { getHeroBanner } from "../../../action/heroBanner";
 
 const categories = [
   { label: "Fashion", emoji: "👗" },
@@ -17,7 +18,9 @@ const categories = [
 //   { target: 99,    suffix: "%",  divisor: 1,    label: "Satisfaction" },
 // ];
 
-export default function Hero() {
+export default async function Hero() {
+  const banner = await getHeroBanner();
+
   return (
     <section className="bg-[#080808] relative overflow-hidden font-sans">
       
@@ -35,10 +38,17 @@ export default function Hero() {
               Mega Sale is Live Now
             </span>
 
-            <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight">
-              Shop <span className="text-transparent bg-clip-text bg-linear-to-r from-primary-color to-orange-400">Smarter</span>,<br /> 
-              Save Big.
-            </h1>
+            {banner?.title ? (
+              <h1 
+                className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight"
+                dangerouslySetInnerHTML={{ __html: banner.title }}
+              />
+            ) : (
+              <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight">
+                Shop <span className="text-transparent bg-clip-text bg-linear-to-r from-primary-color to-orange-400">Smarter</span>,<br /> 
+                Save Big.
+              </h1>
+            )}
 
             <p className="text-gray-400 text-lg leading-relaxed max-w-[480px]">
               Experience the future of online shopping. Premium products, wholesale prices, and lightning-fast delivery at your doorstep.
@@ -70,7 +80,7 @@ export default function Hero() {
             <div className="relative h-[400px] w-full rounded-2xl overflow-hidden">
                 {/* Replace this URL with your actual product/hero image */}
               <Image 
-                src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop" 
+                src={banner?.imageUrl || "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop"} 
                 alt="New Arrivals"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 width={840}

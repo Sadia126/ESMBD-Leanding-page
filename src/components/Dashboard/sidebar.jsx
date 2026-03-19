@@ -7,7 +7,8 @@ import {
   ShoppingBag, 
   Users, 
   ShoppingCart,
-  LogOut 
+  LogOut,
+  ImageIcon
 } from "lucide-react";
 import Logo from '../Shared/Buttons/Logo';
 
@@ -19,7 +20,7 @@ export default function Sidebar() {
     { label: "Overview", href: "/dashboard", icon: <LayoutDashboard size={20}/> },
     { label: "Orders", href: "/dashboard/orders", icon: <ShoppingBag size={20}/> },
     { label: "Customers", href: "/dashboard/customers", icon: <Users size={20}/> },
-   
+    { label: "Hero Banner", href: "/dashboard/hero-banner", icon: <ImageIcon size={20}/> },
   ];
 
   return (

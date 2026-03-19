@@ -6,6 +6,7 @@ const dbName = process.env.DB_NAME;
 export const collections = {
     PRODUCT: "products",    
     ORDER: "order",
+    HERO_BANNER: "hero_banner",
 };
 
 if (!uri) {
