@@ -41,7 +41,7 @@ export default async function Hero() {
             {banner?.title ? (
               <h1 
                 className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight"
-                dangerouslySetInnerHTML={{ __html: banner.title }}
+                dangerouslySetInnerHTML={{ __html: banner.title.replace(/className=/g, 'class=') }}
               />
             ) : (
               <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight">
@@ -51,7 +51,7 @@ export default async function Hero() {
             )}
 
             <p className="text-gray-400 text-lg leading-relaxed max-w-[480px]">
-              Experience the future of online shopping. Premium products, wholesale prices, and lightning-fast delivery at your doorstep.
+              {banner?.description || "Experience the future of online shopping. Premium products, wholesale prices, and lightning-fast delivery at your doorstep."}
             </p>
           </div>
 

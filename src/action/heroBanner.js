@@ -8,7 +8,7 @@ export async function getHeroBanner() {
     const collection = await dbConnect(collections.HERO_BANNER);
     const banner = await collection.findOne({ type: "main_banner" });
     if (banner) {
-      return { title: banner.title, imageUrl: banner.imageUrl };
+      return { title: banner.title, description: banner.description, imageUrl: banner.imageUrl };
     }
     return null; // Return null to indicate no configured banner found
   } catch (error) {
@@ -18,7 +18,7 @@ export async function getHeroBanner() {
 }
 
 // Update or insert the Hero Banner details
-export async function updateHeroBanner(title, imageUrl) {
+export async function updateHeroBanner(title, description, imageUrl) {
   try {
     const collection = await dbConnect(collections.HERO_BANNER);
     
@@ -28,6 +28,7 @@ export async function updateHeroBanner(title, imageUrl) {
       {
         $set: {
           title: title,
+          description: description,
           imageUrl: imageUrl,
           updatedAt: new Date(),
         },

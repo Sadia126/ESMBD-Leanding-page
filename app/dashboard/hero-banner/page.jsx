@@ -7,6 +7,7 @@ import Image from "next/image";
 
 export default function HeroBannerDashboard() {
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -16,6 +17,7 @@ export default function HeroBannerDashboard() {
       const banner = await getHeroBanner();
       if (banner) {
         setTitle(banner.title || "");
+        setDescription(banner.description || "");
         setImageUrl(banner.imageUrl || "");
       }
       setIsLoading(false);
@@ -28,7 +30,7 @@ export default function HeroBannerDashboard() {
     setIsSaving(true);
     
     // Call server action to update the banner
-    const result = await updateHeroBanner(title, imageUrl);
+    const result = await updateHeroBanner(title, description, imageUrl);
     
     setIsSaving(false);
     
@@ -69,13 +71,27 @@ export default function HeroBannerDashboard() {
           <label className="block text-sm font-medium text-gray-300 mb-2">
             Banner Title (HTML Allowed)
           </label>
-          <p className="text-xs text-gray-500 mb-2">Example: Shop &lt;span className="text-transparent bg-clip-text bg-linear-to-r from-primary-color to-orange-400"&gt;Smarter&lt;/span&gt;,&lt;br /&gt; Save Big.</p>
+          <p className="text-xs text-gray-500 mb-2">Example: Shop &lt;span class="text-transparent bg-clip-text bg-linear-to-r from-primary-color to-orange-400"&gt;Smarter&lt;/span&gt;,&lt;br /&gt; Save Big.</p>
           <textarea
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             rows={4}
             className="w-full bg-[#080808] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-transparent transition-all"
             placeholder="Enter hero banner title..."
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Banner Description
+          </label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={3}
+            className="w-full bg-[#080808] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-transparent transition-all"
+            placeholder="Experience the future of online shopping..."
             required
           />
         </div>
