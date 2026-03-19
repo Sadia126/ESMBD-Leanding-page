@@ -2,45 +2,8 @@
 import { useEffect, useState } from 'react';
 import { Minus, Plus, CreditCard, ImageIcon } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
-const products = [
-  {
-    id: 1,
-    name: "Royal Panjabi Edition",
-    description: "Premium cotton silk blend with intricate embroidery",
-    price: 4999,
-    oldPrice: 7000,
-    discount: 30,
-    image: "https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?q=80&w=500", // কাপড়ের ডামি ছবি
-  },
-  {
-    id: 2,
-    name: "Elite Slim-Fit Shirt",
-    description: "Egyptian Giza cotton, wrinkle-free formal wear",
-    price: 2499,
-    oldPrice: 3800,
-    discount: 35,
-    image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=500",
-  },
-  {
-    id: 3,
-    name: "Classic Denim Jacket",
-    description: "Heavyweight indigo denim with shearling lining",
-    price: 3999,
-    oldPrice: 6500,
-    discount: 40,
-    image: "https://images.unsplash.com/photo-1551537482-f2075a1d41f2?q=80&w=500",
-  },
-  {
-    id: 4,
-    name: "Modern Casual Wear",
-    description: "Comfortable breathable fabric for daily use",
-    price: 1500,
-    oldPrice: 2200,
-    discount: 20,
-    image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=500",
-  },
-];
-export default function OrderForm() {
+
+export default function OrderForm({products}) {
   const [quantity, setQuantity] = useState(1);
   const [form, setForm] = useState({
     name: "",
@@ -51,14 +14,14 @@ export default function OrderForm() {
   })
   const params = useSearchParams()
   const id = params.get("productId")
-  const productObj = products.find((product) => product.id === Number(id))
+  const productObj = products.find((product) => product._id === id)
   let initalProduct = productObj ? JSON.stringify(productObj) : null
   const [selectedProduct, setSelectedProduct] = useState(initalProduct);
   const [paymentMethod, setPaymentMethod] = useState("cod");
 
   useEffect(() => {
     if (id) {
-      const pObj = products.find((p) => p.id === Number(id));
+      const pObj = products.find((p) => p._id === id);
       if (pObj) {
         setSelectedProduct(JSON.stringify(pObj));
       }
@@ -164,7 +127,7 @@ export default function OrderForm() {
                   >
                     <option disabled value="">Select Product</option>
                     {products.map((product) => (
-                      <option key={product.id} value={JSON.stringify(product)}>
+                      <option key={product._id} value={JSON.stringify(product)}>
                         {product.name}
                       </option>
                     ))}

@@ -5,15 +5,21 @@ import Footer from "../src/components/Home/footer/footer"
 import Navbar from "../src/components/Home/Navbar/Navbar"
 import Hero from "@/components/Home/Hero/Hero"
 import SaleCountDown from "../src/components/Home/SaleCountDown/SaleCountDown"
+import { getProducts } from "@/action/product"
 
-const Home = () => {
+const Home = async() => {
+  const productsFromDb = await getProducts();
+  const products = productsFromDb.map((product) => ({
+    ...product,
+    _id: product._id.toString(),
+  }));
   return (
     <div>
       <Navbar/>
       <Hero/>
       <SaleCountDown/>
       <FeaturedProducts/>
-      <OrderForm/>
+      <OrderForm products={products} />
       <Testimonial/>
       <Footer/>
     </div>
