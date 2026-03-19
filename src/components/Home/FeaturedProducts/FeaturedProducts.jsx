@@ -42,7 +42,7 @@ const products = [
 
 export default function FeaturedProducts() {
   return (
-    <section className="bg-[#080808] px-[4%] py-20 min-h-screen">
+    <section id="products" className="bg-[#080808] px-[4%] py-20 min-h-screen">
 
       {/* Header Section */}
       <div className="text-center mb-16">

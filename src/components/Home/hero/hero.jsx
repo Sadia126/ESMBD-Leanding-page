@@ -1,14 +1,6 @@
 import Link from "next/link";
-import Image from "next/image"; // Image component add করা হয়েছে
-import { ShoppingBag, Truck, Shield, RotateCcw, Tag, ArrowRight, Zap } from "lucide-react";
-import StatsCounter from "../statsCount/statsCounter";
-
-const features = [
-  { icon: Truck,     title: "Free Delivery",   sub: "Orders over ৳500" },
-  { icon: Shield,    title: "Secure Payment",  sub: "100% protected" },
-  { icon: RotateCcw, title: "Easy Returns",    sub: "30 day policy" },
-  { icon: Tag,       title: "Best Deals",      sub: "Lowest prices" },
-];
+import Image from "next/image"; 
+import { ShoppingBag,ArrowRight, Zap } from "lucide-react";
 
 const categories = [
   { label: "Fashion", emoji: "👗" },
@@ -18,12 +10,12 @@ const categories = [
   { label: "Toys", emoji: "🧸" },
 ];
 
-const stats = [
-  { target: 50000, suffix: "K+", divisor: 1000, label: "Products" },
-  { target: 20000, suffix: "K+", divisor: 1000, label: "Customers" },
-  { target: 4.9,   suffix: "★",  divisor: 1,    label: "Rating",      decimal: 1 },
-  { target: 99,    suffix: "%",  divisor: 1,    label: "Satisfaction" },
-];
+// const stats = [
+//   { target: 50000, suffix: "K+", divisor: 1000, label: "Products" },
+//   { target: 20000, suffix: "K+", divisor: 1000, label: "Customers" },
+//   { target: 4.9,   suffix: "★",  divisor: 1,    label: "Rating", decimal: 1 },
+//   { target: 99,    suffix: "%",  divisor: 1,    label: "Satisfaction" },
+// ];
 
 export default function Hero() {
   return (
@@ -55,20 +47,13 @@ export default function Hero() {
 
           <div className="flex flex-wrap gap-4">
             <Link
-              href="/shop"
+              href="#products"
               className="group flex items-center gap-3 bg-primary-color hover:bg-white text-black font-bold px-8 py-4 rounded-2xl transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(var(--primary-rgb),0.5)] hover:-translate-y-1"
             >
               <ShoppingBag className="w-5 h-5" />
               Start Shopping
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            
-            <Link
-              href="/sale"
-              className="flex items-center gap-2 bg-white/5 border border-white/10 text-white hover:bg-white/10 px-8 py-4 rounded-2xl transition-all font-bold backdrop-blur-sm"
-            >
-              Exclusive Deals
-            </Link>
+            </Link>   
           </div>
 
           {/* <StatsCounter stats={stats} /> */}
@@ -84,10 +69,12 @@ export default function Hero() {
             {/* Top Image Section */}
             <div className="relative h-[400px] w-full rounded-2xl overflow-hidden">
                 {/* Replace this URL with your actual product/hero image */}
-              <img 
+              <Image 
                 src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop" 
                 alt="New Arrivals"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                width={840}
+                height={500}
               />
               <div className="absolute inset-0 bg-linear-to-t from-[#0f0f0f] via-transparent to-transparent" />
               
