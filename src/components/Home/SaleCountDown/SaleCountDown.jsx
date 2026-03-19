@@ -1,9 +1,11 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const CountdownTimer = ({ targetDate }) => {
+const SaleCountDown = () => {
+  const targetDate = "2026-03-20T09:47:46.452Z";
   const calculateTimeLeft = () => {
-    const diff = new Date(targetDate) - new Date();
+    const diff = new Date(targetDate).getTime() - new Date().getTime();
     if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
     return {
       days: Math.floor(diff / (1000 * 60 * 60 * 24)),
@@ -22,7 +24,7 @@ const CountdownTimer = ({ targetDate }) => {
 
   const timeBlock = (value, label) => (
     <div className="flex flex-col items-center">
-      <div className="bg-[#2C2B30] px-6 py-4 rounded-lg shadow-md text-[#FFC900] text-2xl font-mono min-w-[60px]">
+      <div className="bg-[#2C2B30] px-6 py-4 rounded-lg shadow-md text-primary-color text-2xl font-mono min-w-[60px]">
         {value.toString().padStart(2, "0")}
       </div>
       <div className="text-xs text-[#AAAAAA] mt-1">{label}</div>
@@ -52,16 +54,12 @@ const CountdownTimer = ({ targetDate }) => {
           {timeBlock(timeLeft.seconds, "SECONDS")}
         </div>
 
-        <button className="bg-[#FFC900] hover:bg-[#FFD633] text-black font-bold py-3 px-8 rounded shadow-lg transition-colors">
+        <Link href="#products" className="inline-block bg-primary-color hover:bg-white text-black font-bold py-3 px-8 rounded shadow-lg transition-colors">
           Claim Your Discount
-        </button>
+        </Link>
       </div>
     </div>
   );
 };
 
-export default function CountdownPage() {
-  const target = new Date();
-  target.setDate(target.getDate() + 6); // 6 days from now
-  return <CountdownTimer targetDate={target} />;
-}
+export default SaleCountDown
