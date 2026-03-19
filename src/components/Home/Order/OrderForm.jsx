@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { Minus, Plus, CreditCard, ImageIcon } from 'lucide-react';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 const products = [
   {
     id: 1,
@@ -64,6 +64,13 @@ export default function OrderForm() {
       }
     }
   }, [id]);
+    // delevery charge claculation 
+  let deliveryCharge;
+  if (form.district.toLocaleLowerCase() === "dhaka") {
+    deliveryCharge = 60;
+  } else {
+    deliveryCharge = 120;
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("অর্ডার সফলভাবে গ্রহণ করা হয়েছে!");
@@ -72,9 +79,10 @@ export default function OrderForm() {
     {
       name: productObj.name,
       discount: productObj.discount,
+      deliveryCharge,
       image: productObj.image,
       sellerPrice: productObj.oldPrice,
-      price: productObj.price,
+      totalPrice: productObj.price,
       productId: productObj.id
     }
     console.log({ ...form, ...product, quantity, paymentMethod })
@@ -85,13 +93,7 @@ export default function OrderForm() {
       [e.target.name]: e.target.value
     })
   }
-  // delevery charge claculation 
-  let deliveryCharge;
-  if (form.district.toLocaleLowerCase() === "dhaka") {
-    deliveryCharge = 60;
-  } else {
-    deliveryCharge = 120;
-  }
+
   return (
     <>
       <section id={`order`} className="w-full min-h-screen bg-[#0a0c12] text-white py-12 px-4 md:px-10 lg:px-20">
@@ -208,8 +210,19 @@ export default function OrderForm() {
 
                 </div>
 
-                <label htmlFor="address" className="text-xs font-bold uppercase text-accent-content">Full Address (Area, City, House No)</label>
-                <textarea required rows={3} value={form.address} onChange={handleChange} name="address" id="address" placeholder="Full Address (Area, City, House No)" className="w-full bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none resize-none"></textarea>
+                <label htmlFor="address"
+                  className="text-xs font-bold uppercase text-accent-content">
+                  Full Address (Area, City, House No)</label>
+                <textarea
+                  required
+                  rows={3}
+                  value={form.address}
+                  onChange={handleChange}
+                  name="address"
+                  id="address"
+                  placeholder="Full Address (Area, City, House No)"
+                  className="w-full bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none resize-none"
+                />
               </div>
             </div>
           </div>
@@ -257,6 +270,8 @@ export default function OrderForm() {
                   <input
                     required
                     type="text"
+                    onChange={handleChange}
+                    name="transactionId"
                     placeholder="Enter TrxID (e.g. 8N7X6W5Q)"
                     className="w-full bg-[#0a0c12] border border-[#d4af37]/50 rounded-lg px-4 py-3 focus:ring-1 focus:ring-[#d4af37] outline-none text-white font-mono"
                   />
@@ -271,7 +286,7 @@ export default function OrderForm() {
                 </div>
                 <div className="flex justify-between text-gray-400">
                   <span>Delivery Fee</span>
-                  <span className="text-green-500">{form.district ? deliveryCharge : 0}</span>
+                  <span className="text-btn-color">{form.district ? deliveryCharge : 0}</span>
                 </div>
                 <div className="flex justify-between text-2xl font-bold border-t border-gray-800 pt-4">
                   <span>Total</span>
@@ -279,7 +294,7 @@ export default function OrderForm() {
                 </div>
               </div>
 
-              <button type="submit" className={`w-full ${form.district === "" ? "bg-accent/20 cursor-not-allowed text-accent-content/50" : "bg-primary-color hover:bg-[#b8962f] text-accent"} py-5 font-bold rounded-xl mt-8 transition-transform active:scale-95 shadow-[0_10px_30px_rgba(212,175,55,0.2)]`}>
+              <button type="submit" className={`w-full ${form.district === "" || form.city === "" || form.address === "" || form.name === "" || form.phone === "" || selectedProduct == null ? "bg-accent/20 cursor-not-allowed text-accent-content/50" : "bg-primary-color hover:bg-[#b8962f] text-accent"} py-5 font-bold rounded-xl mt-8 transition-transform active:scale-95 shadow-[0_10px_30px_rgba(212,175,55,0.2)]`}>
                 CONFIRM ORDER NOW
               </button>
             </div>
