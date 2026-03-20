@@ -1,10 +1,26 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { getSaleCountDown } from "../../../action/saleCountDown";
 
 const SaleCountDown = () => {
-  const targetDate = "2026-03-20T09:47:46.452Z";
-  const calculateTimeLeft = () => {
+  const [targetDate, setTargetDate] = useState("2026-03-20T09:47:46.452Z");
+  const [title, setTitle] = useState("Limited Time Offer - Up to 40% Off!");
+  const [description, setDescription] = useState("Don't miss out on this exclusive offer. Hurry, the clock is ticking!");
+
+  useEffect(() => {
+    async function fetchConfig() {
+      const data = await getSaleCountDown();
+      if (data) {
+        if (data.title) setTitle(data.title);
+        if (data.description) setDescription(data.description);
+        if (data.targetDate) setTargetDate(data.targetDate);
+      }
+    }
+    fetchConfig();
+  }, []);
+
+  const calculateTimeLeft = useCallback(() => {
     const diff = new Date(targetDate).getTime() - new Date().getTime();
     if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
     return {
@@ -13,14 +29,15 @@ const SaleCountDown = () => {
       minutes: Math.floor((diff / 1000 / 60) % 60),
       seconds: Math.floor((diff / 1000) % 60),
     };
-  };
+  }, [targetDate]);
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
+    setTimeLeft(calculateTimeLeft());
     const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, [calculateTimeLeft]);
 
   const timeBlock = (value, label) => (
     <div className="flex flex-col items-center">
@@ -38,10 +55,10 @@ const SaleCountDown = () => {
           🔥 Limited Time Only
         </p>
         <h1 className="text-2xl md:text-4xl font-bold mb-2 text-white">
-          Limited Time Offer - Up to 40% Off!
+          {title}
         </h1>
         <p className="mb-8 text-[#B0B0B0] text-lg">
-          Don't miss out on this exclusive offer. Hurry, the clock is ticking!
+          {description}
         </p>
 
         <div className="flex justify-center flex-wrap gap-4 mb-8">

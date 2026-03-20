@@ -8,7 +8,8 @@ import {
   Users, 
   ShoppingCart,
   LogOut,
-  ImageIcon
+  ImageIcon,
+  Timer
 } from "lucide-react";
 import Logo from '../Shared/Buttons/Logo';
 
@@ -21,6 +22,7 @@ export default function Sidebar() {
     { label: "Orders", href: "/dashboard/orders", icon: <ShoppingBag size={20}/> },
     { label: "Customers", href: "/dashboard/customers", icon: <Users size={20}/> },
     { label: "Hero Banner", href: "/dashboard/hero-banner", icon: <ImageIcon size={20}/> },
+    { label: "Sale Countdown", href: "/dashboard/sale-countdown", icon: <Timer size={20}/> },
   ];
 
   return (
