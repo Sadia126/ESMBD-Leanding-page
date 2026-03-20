@@ -14,7 +14,7 @@ export default function OrderForm({products}) {
   })
   const params = useSearchParams()
   const id = params.get("productId")
-  const productObj = products.find((product) => product._id === id)
+  const productObj = products?.find((product) => product._id === id)
   let initalProduct = productObj ? JSON.stringify(productObj) : null
   const [selectedProduct, setSelectedProduct] = useState(initalProduct);
   const [paymentMethod, setPaymentMethod] = useState("cod");
@@ -126,7 +126,7 @@ export default function OrderForm({products}) {
                     className="w-full bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-3 focus:border-[#d4af37] outline-none"
                   >
                     <option disabled value="">Select Product</option>
-                    {products.map((product) => (
+                    {products?.map((product) => (
                       <option key={product._id} value={JSON.stringify(product)}>
                         {product.name}
                       </option>

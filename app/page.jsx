@@ -9,7 +9,7 @@ import { getProducts } from "@/action/product"
 
 const Home = async() => {
   const productsFromDb = await getProducts();
-  const products = productsFromDb.map((product) => ({
+  const products = productsFromDb?.map((product) => ({
     ...product,
     _id: product._id.toString(),
   }));

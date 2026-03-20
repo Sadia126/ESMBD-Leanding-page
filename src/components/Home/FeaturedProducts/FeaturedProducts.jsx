@@ -22,7 +22,7 @@ export default async function FeaturedProducts() {
 
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 max-w-[1200px] mx-auto">
-        {products.map((product) => (
+        {products?.map((product) => (
           <div
             key={product._id}
             className="group relative bg-[#11151c] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:border-[#d4af37]/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
