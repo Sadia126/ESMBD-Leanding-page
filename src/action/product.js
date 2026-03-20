@@ -18,6 +18,10 @@ export const getProducts = async () => {
 
 export const addProduct = async (productData) => {
     try {
+        const products = await getProducts()
+        if (products.length >= 4) {
+            return { success: false, message: "You can only add 4 products." };
+        }
         const productCollection = await dbConnect(collections.PRODUCT);
         const result = await productCollection.insertOne(productData);
         return { success: true, message: "Product added successfully.", id: result.insertedId.toString() };
@@ -38,5 +42,22 @@ export const deleteProduct = async (id) => {
     } catch (error) {
         console.error("Failed to delete product:", error);
         return { success: false, message: "Failed to delete product." };
+    }
+}
+
+export const updateProduct = async (id, productData) => {
+    try {
+        const productCollection = await dbConnect(collections.PRODUCT);
+        const result = await productCollection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: productData }
+        );
+        if (result.matchedCount === 1) {
+            return { success: true, message: "Product updated successfully." };
+        }
+        return { success: false, message: "Product not found." };
+    } catch (error) {
+        console.error("Failed to update product:", error);
+        return { success: false, message: "Failed to update product." };
     }
 }

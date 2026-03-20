@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getProducts, addProduct, deleteProduct } from "@/action/product";
+import { getProducts, addProduct, deleteProduct, updateProduct } from "@/action/product";
 import Swal from "sweetalert2";
 import Image from "next/image";
-import { Trash2 } from "lucide-react";
+import { Trash2, Pencil } from "lucide-react";
 
 export default function FeaturedProductsDashboard() {
   const [products, setProducts] = useState([]);
@@ -18,6 +18,7 @@ export default function FeaturedProductsDashboard() {
   const [discount, setDiscount] = useState("");
   const [image, setImage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
     loadProducts();
@@ -36,24 +37,32 @@ export default function FeaturedProductsDashboard() {
     e.preventDefault();
     setIsSaving(true);
     
-    const result = await addProduct({
+    const productData = {
         name,
         description,
         price: Number(price),
         oldPrice: Number(oldPrice),
         discount: Number(discount),
         image
-    });
+    };
+
+    let result;
+    if (editingId) {
+        result = await updateProduct(editingId, productData);
+    } else {
+        result = await addProduct(productData);
+    }
     
     if (result.success) {
       Swal.fire({
         icon: "success",
-        title: "Added",
-        text: "Product added successfully!",
+        title: editingId ? "Updated" : "Added",
+        text: result.message,
         background: "#11151c",
         color: "#fff",
       });
       // Reset form
+      setEditingId(null);
       setName("");
       setDescription("");
       setPrice("");
@@ -66,12 +75,33 @@ export default function FeaturedProductsDashboard() {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Failed to add product.",
+        text: result.message,
         background: "#11151c",
         color: "#fff",
       });
     }
     setIsSaving(false);
+  };
+
+  const handleEdit = (product) => {
+      setEditingId(product._id);
+      setName(product.name || "");
+      setDescription(product.description || "");
+      setPrice(product.price || "");
+      setOldPrice(product.oldPrice || "");
+      setDiscount(product.discount || "");
+      setImage(product.image || "");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const cancelEdit = () => {
+      setEditingId(null);
+      setName("");
+      setDescription("");
+      setPrice("");
+      setOldPrice("");
+      setDiscount("");
+      setImage("");
   };
 
   const handleDelete = async (id) => {
@@ -112,9 +142,11 @@ export default function FeaturedProductsDashboard() {
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-8 space-y-12">
-      {/* ADD PRODUCT FORM */}
+      {/* ADD/EDIT PRODUCT FORM */}
       <div className="bg-[#11151c] rounded-2xl shadow-xl border border-white/5 p-6 md:p-8">
-        <h1 className="text-2xl font-bold text-white mb-6">Add Featured Product</h1>
+        <h1 className="text-2xl font-bold text-white mb-6">
+            {editingId ? "Edit Featured Product" : "Add Featured Product"}
+        </h1>
         
         <form onSubmit={handleAddSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="md:col-span-2">
@@ -189,13 +221,23 @@ export default function FeaturedProductsDashboard() {
             />
           </div>
 
-          <div className="md:col-span-2 flex justify-end mt-2">
+          <div className="md:col-span-2 flex justify-end mt-2 gap-4">
+            {editingId && (
+              <button
+                type="button"
+                onClick={cancelEdit}
+                disabled={isSaving}
+                className={`px-8 py-3 bg-gray-600 hover:bg-gray-500 text-white font-bold rounded-xl transition-all shadow-lg ${isSaving ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-0.5'}`}
+              >
+                Cancel
+              </button>
+            )}
             <button
               type="submit"
               disabled={isSaving}
               className={`px-8 py-3 bg-primary-color hover:bg-white text-black font-bold rounded-xl transition-all shadow-lg ${isSaving ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-0.5'}`}
             >
-              {isSaving ? "Adding..." : "Add Product"}
+              {isSaving ? "Saving..." : (editingId ? "Update Product" : "Add Product")}
             </button>
           </div>
         </form>
@@ -232,13 +274,22 @@ export default function FeaturedProductsDashboard() {
                     </div>
                 </div>
 
-                <button
-                    onClick={() => handleDelete(product._id)}
-                    className="p-3 text-gray-400 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all"
-                    title="Delete Product"
-                >
-                    <Trash2 size={20} />
-                </button>
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => handleEdit(product)}
+                        className="p-3 text-gray-400 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all"
+                        title="Edit Product"
+                    >
+                        <Pencil size={20} />
+                    </button>
+                    <button
+                        onClick={() => handleDelete(product._id)}
+                        className="p-3 text-gray-400 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all"
+                        title="Delete Product"
+                    >
+                        <Trash2 size={20} />
+                    </button>
+                </div>
               </div>
             ))}
           </div>
