@@ -19,8 +19,8 @@ export const getProducts = async () => {
 export const addProduct = async (productData) => {
     try {
         const products = await getProducts()
-        if (products.length >= 4) {
-            return { success: false, message: "You can only add 4 products." };
+        if (products.length >= 8) {
+            return { success: false, message: "You can only add 8 featured products." };
         }
         const productCollection = await dbConnect(collections.PRODUCT);
         const result = await productCollection.insertOne(productData);

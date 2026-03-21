@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react';
 import { Minus, Plus, CreditCard, ImageIcon } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
+import { placeOrder } from '@/action/order';
+import Swal from 'sweetalert2';
 
 export default function OrderForm({products}) {
   const [quantity, setQuantity] = useState(1);
@@ -10,7 +12,8 @@ export default function OrderForm({products}) {
     phone: "",
     district: "",
     city: "",
-    address: ""
+    address: "",
+    transactionId: ""
   })
   const params = useSearchParams()
   const id = params.get("productId")
@@ -34,9 +37,18 @@ export default function OrderForm({products}) {
   } else {
     deliveryCharge = 120;
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("অর্ডার সফলভাবে গ্রহণ করা হয়েছে!");
+    if (form.district === "" || form.city === "" || form.address === "" || form.customerName === "" || form.phone === "" || selectedProduct == null) {
+        return Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Please fill all the fields",
+            background: "#11151c",
+            color: "#fff",
+        });
+    }
+    
     const productObj = JSON.parse(selectedProduct)
     const product =
     {
@@ -46,9 +58,37 @@ export default function OrderForm({products}) {
       image: productObj.image,
       sellerPrice: productObj.oldPrice,
       totalPrice: productObj.price,
-      productId: productObj.id
+      productId: productObj._id
     }
-    console.log({ ...form, ...product, quantity, paymentMethod })
+    
+    const orderData = { 
+        ...form, 
+        ...product, 
+        quantity, 
+        paymentMethod 
+    };
+
+    const result = await placeOrder(orderData);
+    if (result.success) {
+        Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "অর্ডার সফলভাবে গ্রহণ করা হয়েছে!",
+            background: "#11151c",
+            color: "#fff",
+        });
+        setForm({ name: "", phone: "", district: "", city: "", address: "", transactionId: "" });
+        setQuantity(1);
+        setPaymentMethod("cod");
+    } else {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "অর্ডার করতে সমস্যা হয়েছে।",
+            background: "#11151c",
+            color: "#fff",
+        });
+    }
   };
   const handleChange = (e) => {
     setForm({
@@ -153,7 +193,7 @@ export default function OrderForm({products}) {
                 <div className='flex justify-between'>
                   {/* name */}
                   <label className="text-xs font-bold uppercase text-accent-content">Full Name
-                    <input required type="text" value={form.name} onChange={handleChange} name="name" placeholder="Full Name" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
+                    <input required type="text" value={form.customerName} onChange={handleChange} name="customerName" placeholder="Full Name" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
                   </label>
                   {/* phone */}
                   <label className="text-xs font-bold uppercase text-accent-content">Phone Number
@@ -257,7 +297,7 @@ export default function OrderForm({products}) {
                 </div>
               </div>
 
-              <button type="submit" className={`w-full ${form.district === "" || form.city === "" || form.address === "" || form.name === "" || form.phone === "" || selectedProduct == null ? "bg-accent/20 cursor-not-allowed text-accent-content/50" : "bg-primary-color hover:bg-[#b8962f] text-accent"} py-5 font-bold rounded-xl mt-8 transition-transform active:scale-95 shadow-[0_10px_30px_rgba(212,175,55,0.2)]`}>
+              <button type="submit" className={`w-full ${form.district === "" || form.city === "" || form.address === "" || form.customerName === "" || form.phone === "" || selectedProduct == null ? "bg-accent/20 cursor-not-allowed text-accent-content/50" : "bg-primary-color hover:bg-[#b8962f] text-accent"} py-5 font-bold rounded-xl mt-8 transition-transform active:scale-95 shadow-[0_10px_30px_rgba(212,175,55,0.2)]`}>
                 CONFIRM ORDER NOW
               </button>
             </div>
