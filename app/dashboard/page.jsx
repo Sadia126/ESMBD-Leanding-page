@@ -1,13 +1,13 @@
 "use client";
 
 import React from 'react';
-import { 
-  ShoppingBag, 
+import {  
   DollarSign, 
   Clock, 
   CheckCircle2, 
   ShoppingCart 
 } from 'lucide-react';
+import Link from 'next/link';
 
 export default function DashboardPage() {
   
@@ -52,10 +52,10 @@ export default function DashboardPage() {
       </div>
 
       {/* 2. Recent Orders Table Section */}
-      <div className="bg-[#11151c] border border-white/5 rounded-[2rem] overflow-hidden shadow-2xl">
+      <div className="bg-[#11151c] border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
         <div className="p-8 border-b border-white/5 flex justify-between items-center bg-[#0d1016]">
           <h3 className="font-bold text-xl text-white">Recent Orders</h3>
-          <button className="text-[#d4af37] text-xs font-bold hover:underline tracking-widest uppercase">View All</button>
+          <Link href={`/dashboard/orders`} className="text-[#d4af37] text-xs font-bold hover:underline tracking-widest uppercase">View All</Link>
         </div>
         
         <div className="overflow-x-auto">
@@ -72,7 +72,7 @@ export default function DashboardPage() {
             </thead>
             <tbody className="divide-y divide-white/5">
               {recentOrders.map((order, idx) => (
-                <tr key={idx} className="hover:bg-white/[0.02] transition-colors group">
+                <tr key={idx} className="hover:bg-white/02 transition-colors group">
                   <td className="px-8 py-5 text-sm font-mono text-gray-400 group-hover:text-white">{order.id}</td>
                   <td className="px-8 py-5">
                     <div className="text-sm font-bold text-white">{order.customer}</div>
