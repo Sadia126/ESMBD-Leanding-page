@@ -10,12 +10,13 @@ import {
   LogOut,
   ImageIcon,
   Timer,
-  Star
+  Star,
+  X
 } from "lucide-react";
 import Logo from '../Shared/Buttons/Logo';
 
 // এই "export default" লেখাটি নিশ্চিত করবে যে layout.js ফাইলটি এটি খুঁজে পাবে
-export default function Sidebar() {
+export default function Sidebar({ onClose }) {
   const pathname = usePathname();
 
   const menuItems = [
@@ -30,15 +31,26 @@ export default function Sidebar() {
   return (
     <div className="h-full bg-[#11151c] border-r border-white/5 flex flex-col overflow-y-auto">
       
-      {/* Logo Section - আপনার দেওয়া কোডটি এখানে ফিক্সড করা হয়েছে */}
-      <Logo/>
+      {/* Logo Section & Close Button for Mobile */}
+      <div className="flex items-center justify-between pr-4">
+        <Logo/>
+        {onClose && (
+          <button 
+            onClick={onClose}
+            className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
+          >
+            <X size={24} />
+          </button>
+        )}
+      </div>
 
       {/* Navigation Menu */}
-      <nav className="flex-1 px-6 space-y-2">
+      <nav className="flex-1 px-6 space-y-2 mt-4">
         {menuItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}
+            onClick={onClose}
             className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-sm font-bold ${
               pathname === item.href 
                 ? "bg-[#d4af37] text-black shadow-lg shadow-[#d4af37]/20" 
@@ -52,7 +64,7 @@ export default function Sidebar() {
 
       {/* Logout Button */}
       <div className="p-6 border-t border-white/5">
-        <button className="flex items-center gap-4 px-4 py-3 w-full text-gray-500 hover:text-red-500 transition-colors font-bold text-sm">
+        <button className="flex items-center gap-4 px-4 py-3 w-full text-gray-500 hover:text-secondary transition-colors font-bold text-sm">
           <LogOut size={20} /> <span>Logout</span>
         </button>
       </div>
