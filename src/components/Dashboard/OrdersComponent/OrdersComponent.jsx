@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { Search, Eye, Trash2, X } from 'lucide-react';
 import { deleteOrder, updateOrderStatus } from '@/action/order';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation';
 
 export default function OrdersComponent({orders}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
-
+const router = useRouter()
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({
       title: "Are you sure?",
@@ -25,7 +26,7 @@ export default function OrdersComponent({orders}) {
     if (confirm.isConfirmed) {
       const result = await deleteOrder(id);
       if (result.success) {
-        await loadOrders();
+       router.refresh()
       }
     }
   };
@@ -34,7 +35,8 @@ export default function OrdersComponent({orders}) {
     setIsUpdating(true);
     const result = await updateOrderStatus(id, newStatus);
     if (result.success) {
-      await loadOrders();
+     router.refresh()
+     setSelectedOrder(null)
     }
     setIsUpdating(false);
   };
@@ -145,7 +147,7 @@ export default function OrdersComponent({orders}) {
                 {filteredOrders.map(order => (
                   <tr key={order._id} className="hover:bg-white/5">
 
-                    <td className="px-6 py-4 text-xs text-[#d4af37] font-mono">
+                    <td className="px-6 py-4 text-xs text-primary-color font-mono">
                       {(order._id || "").slice(0, 8)}
                     </td>
 
@@ -338,7 +340,7 @@ export default function OrdersComponent({orders}) {
   );
 }
 
-function getStatusStyle(status) {
+export function getStatusStyle(status) {
   switch (status) {
     case 'Delivered': return 'bg-green-500/10 text-green-500';
     case 'Pending': return 'bg-yellow-500/10 text-yellow-500';
