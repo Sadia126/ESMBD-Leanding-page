@@ -8,6 +8,7 @@ export const collections = {
     ORDER: "order",
     HERO_BANNER: "hero_banner",
     SALE_COUNTDOWN: "sale_countdown",
+    REVIEW: "reviews"
 };
 
 if (!uri) {

@@ -21,60 +21,67 @@ export default async function FeaturedProducts() {
       </div>
 
       {/* Product Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 max-w-[1200px] mx-auto">
-        {products?.map((product) => (
-          <div
-            key={product._id}
-            className="group relative bg-[#11151c] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:border-[#d4af37]/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
-          >
-            {/* Discount Badge */}
-            <div className="absolute top-5 left-5 z-10 bg-red-600 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-lg">
-              -{product.discount}%
-            </div>
-
-            {/* Product Image Area */}
-            <div className="relative aspect-4/5 w-full overflow-hidden rounded-2xl mb-6 bg-[#0a0c12]">
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-              />
-              {/* Overlay on hover */}
-              <div className="absolute inset-0 bg-linear-to-t from-[#0a0c12] via-transparent to-transparent opacity-60"></div>
-            </div>
-
-            {/* Product Info */}
-            <div className="space-y-2">
-              <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-[#d4af37] transition-colors">
-                {product.name}
-              </h3>
-              <p className="text-gray-500 text-xs leading-relaxed mb-4">
-                {product.description}
-              </p>
-
-              <div className="flex items-baseline gap-3 pt-2">
-                <span className="text-2xl font-bold text-[#d4af37]">
-                  ৳{product.price}
-                </span>
-                <span className="text-sm text-gray-600 line-through">
-                  ৳{product.oldPrice}
-                </span>
-              </div>
-            </div>
-
-            {/* Order Button */}
-            <Link
-              href={`/?productId=${product._id}#order`}
-              className="mt-6 w-full flex items-center justify-center bg-[#d4af37] hover:bg-[#b8962f] text-black text-sm font-bold py-4 rounded-xl transition-all active:scale-95 shadow-lg"
+      {products.length === 0 ? (
+        <div className="text-3xl text-center py-10 text-gray-500">
+          No products found!
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-8 max-w-[1200px] mx-auto">
+          {products?.map((product) => (
+            <div
+              key={product._id}
+              className="group relative bg-[#11151c] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:border-[#d4af37]/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
             >
-              Order Now
-            </Link>
+              {/* Discount Badge */}
+              <div className="absolute top-5 left-5 z-10 bg-red-600 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-lg">
+                -{product.discount}%
+              </div>
 
-          </div>
-        ))}
-      </div>
+              {/* Product Image Area */}
+              <div className="relative aspect-4/5 w-full overflow-hidden rounded-2xl mb-6 bg-[#0a0c12]">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                />
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-linear-to-t from-[#0a0c12] via-transparent to-transparent opacity-60"></div>
+              </div>
+
+              {/* Product Info */}
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-[#d4af37] transition-colors">
+                  {product.name}
+                </h3>
+                <p className="text-gray-500 text-xs leading-relaxed mb-4">
+                  {product.description}
+                </p>
+
+                <div className="flex items-baseline gap-3 pt-2">
+                  <span className="text-2xl font-bold text-[#d4af37]">
+                    ৳{product.price}
+                  </span>
+                  <span className="text-sm text-gray-600 line-through">
+                    ৳{product.oldPrice}
+                  </span>
+                </div>
+              </div>
+
+              {/* Order Button */}
+              <Link
+                href={`/?productId=${product._id}#order`}
+                className="mt-6 w-full flex items-center justify-center bg-[#d4af37] hover:bg-[#b8962f] text-black text-sm font-bold py-4 rounded-xl transition-all active:scale-95 shadow-lg"
+              >
+                Order Now
+              </Link>
+
+            </div>
+          ))}
+        </div>
+      )}
+
 
     </section>
   );

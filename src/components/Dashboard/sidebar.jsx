@@ -11,6 +11,7 @@ import {
   ImageIcon,
   Timer,
   Star,
+  MessageSquare,
   X
 } from "lucide-react";
 import Logo from '../Shared/Buttons/Logo';
@@ -26,6 +27,7 @@ export default function Sidebar({ onClose }) {
     { label: "Hero Banner", href: "/dashboard/hero-banner", icon: <ImageIcon size={20}/> },
     { label: "Sale Countdown", href: "/dashboard/sale-countdown", icon: <Timer size={20}/> },
     { label: "Featured Products", href: "/dashboard/featured-products", icon: <Star size={20}/> },
+    { label: "Reviews", href: "/dashboard/reviews", icon: <MessageSquare size={20}/> },
   ];
 
   return (
