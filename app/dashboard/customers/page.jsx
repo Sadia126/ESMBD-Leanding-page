@@ -4,12 +4,12 @@ import CustomersComponent from "@/components/Dashboard/CustomersComponent/Custom
 export default async function CustomersPage() {
   const orders = await getOrders();
   
-  // Aggregate orders by phone number to extract unique customers
+  // Aggregate orders by email to extract unique customers
   const customersMap = {};
   
   orders?.forEach(order => {
-    const key = order.phone; // Grouping by phone as the primary unique identifier for customers
-    if (!key) return; // Skip if no phone
+    const key = order.email; // Grouping by email as the primary unique identifier for customers
+    if (!key) return; // Skip if no email
     
     if (!customersMap[key]) {
       customersMap[key] = {
