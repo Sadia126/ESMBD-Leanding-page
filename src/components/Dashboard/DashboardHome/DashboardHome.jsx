@@ -103,7 +103,7 @@ export default function DashboardHome({ orders }) {
 
                 <>
                     <div className="block xl:hidden space-y-3">
-                        {orders.map(order => (
+                        {orders?.slice(0,10).map(order => (
                             <div key={order._id} className="bg-[#11151c] border border-white/5 rounded-xl p-4 space-y-2">
 
                                 <div className="flex justify-between items-center">
@@ -170,7 +170,7 @@ export default function DashboardHome({ orders }) {
                                 </thead>
 
                                 <tbody className="divide-y divide-white/5">
-                                    {orders.map(order => (
+                                    {orders?.slice(0,10).map(order => (
                                         <tr key={order._id} className="hover:bg-white/5">
 
                                             <td className="px-6 py-4 text-xs text-primary-color font-mono">

@@ -15,6 +15,7 @@ import {
   X
 } from "lucide-react";
 import Logo from '../Shared/Buttons/Logo';
+import { signOut } from 'next-auth/react';
 
 // এই "export default" লেখাটি নিশ্চিত করবে যে layout.js ফাইলটি এটি খুঁজে পাবে
 export default function Sidebar({ onClose }) {
@@ -66,7 +67,7 @@ export default function Sidebar({ onClose }) {
 
       {/* Logout Button */}
       <div className="p-6 border-t border-white/5">
-        <button className="flex items-center gap-4 px-4 py-3 w-full text-gray-500 hover:text-secondary transition-colors font-bold text-sm">
+        <button onClick={()=>signOut()} className="flex items-center gap-4 px-4 py-3 w-full text-gray-500 hover:text-secondary transition-colors font-bold text-sm">
           <LogOut size={20} /> <span>Logout</span>
         </button>
       </div>
