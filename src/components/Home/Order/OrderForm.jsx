@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { placeOrder } from '@/action/order';
 import Swal from 'sweetalert2';
 
-export default function OrderForm({products}) {
+export default function OrderForm({ products }) {
   const [quantity, setQuantity] = useState(1);
   const [form, setForm] = useState({
     name: "",
@@ -13,7 +13,8 @@ export default function OrderForm({products}) {
     district: "",
     city: "",
     address: "",
-    transactionId: ""
+    transactionId: "",
+    email: ""
   })
   const params = useSearchParams()
   const id = params.get("productId")
@@ -30,7 +31,7 @@ export default function OrderForm({products}) {
       }
     }
   }, [id]);
-    // delevery charge claculation 
+  // delevery charge claculation 
   let deliveryCharge;
   if (form.district.toLocaleLowerCase() === "dhaka") {
     deliveryCharge = 60;
@@ -39,16 +40,16 @@ export default function OrderForm({products}) {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.district === "" || form.city === "" || form.address === "" || form.customerName === "" || form.phone === "" || selectedProduct == null) {
-        return Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Please fill all the fields",
-            background: "#11151c",
-            color: "#fff",
-        });
+    if (form.district === "" || form.email === "" || form.city === "" || form.address === "" || form.customerName === "" || form.phone === "" || selectedProduct == null) {
+      return Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please fill all the fields",
+        background: "#11151c",
+        color: "#fff",
+      });
     }
-    
+
     const productObj = JSON.parse(selectedProduct)
     const product =
     {
@@ -60,34 +61,34 @@ export default function OrderForm({products}) {
       totalPrice: productObj.price,
       productId: productObj._id
     }
-    
-    const orderData = { 
-        ...form, 
-        ...product, 
-        quantity, 
-        paymentMethod 
+
+    const orderData = {
+      ...form,
+      ...product,
+      quantity,
+      paymentMethod
     };
 
     const result = await placeOrder(orderData);
     if (result.success) {
-        Swal.fire({
-            icon: "success",
-            title: "Success",
-            text: "অর্ডার সফলভাবে গ্রহণ করা হয়েছে!",
-            background: "#11151c",
-            color: "#fff",
-        });
-        setForm({ name: "", phone: "", district: "", city: "", address: "", transactionId: "" });
-        setQuantity(1);
-        setPaymentMethod("cod");
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "অর্ডার সফলভাবে গ্রহণ করা হয়েছে!",
+        background: "#11151c",
+        color: "#fff",
+      });
+      setForm({ name: "", phone: "", district: "", city: "", address: "", transactionId: "", email: "" });
+      setQuantity(1);
+      setPaymentMethod("cod");
     } else {
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "অর্ডার করতে সমস্যা হয়েছে।",
-            background: "#11151c",
-            color: "#fff",
-        });
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "অর্ডার করতে সমস্যা হয়েছে।",
+        background: "#11151c",
+        color: "#fff",
+      });
     }
   };
   const handleChange = (e) => {
@@ -210,9 +211,11 @@ export default function OrderForm({products}) {
                   <label className="text-xs font-bold uppercase text-accent-content">City
                     <input required type="text" value={form.city} onChange={handleChange} name="city" placeholder="City" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
                   </label>
-
                 </div>
-
+                {/* Email */}
+                <label className="text-xs font-bold uppercase text-accent-content">Email
+                  <input required type="email" value={form.email} onChange={handleChange} name="email" placeholder="Email" className="w-full mt-2 bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-4 focus:border-primary-color outline-none" />
+                </label>
                 <label htmlFor="address"
                   className="text-xs font-bold uppercase text-accent-content">
                   Full Address (Area, City, House No)</label>
