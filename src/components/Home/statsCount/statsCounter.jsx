@@ -23,12 +23,12 @@ function Counter({ stat }) {
     const animate = (currentTime) => {
       if (!startTime) startTime = currentTime;
       const elapsedTime = currentTime - startTime;
-      
+
       // Ease-out cubic formula: (1 - Math.pow(1 - progress, 3))
       // এটি শুরুতে দ্রুত এবং শেষের দিকে ধীরে এনিমেশন শেষ করে
       const progress = Math.min(elapsedTime / duration, 1);
       const easeOutProgress = 1 - Math.pow(1 - progress, 3);
-      
+
       const currentCount = easeOutProgress * endValue;
       setCount(currentCount);
 
@@ -47,7 +47,7 @@ function Counter({ stat }) {
 
   return (
     <div className="flex flex-col items-start lg:items-center">
-      <p className="text-2xl md:text-3xl font-black text-white tracking-tight">
+      <p className="text-2xl md:text-3xl font-black text-accent-content tracking-tight">
         {displayValue}
         <span className="text-primary-color ml-0.5">{stat.suffix}</span>
       </p>

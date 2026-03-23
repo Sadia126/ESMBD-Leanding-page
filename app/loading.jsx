@@ -1,9 +1,9 @@
 export default function loading() {
   return (
-    <div className="w-full min-h-screen bg-black text-white animate-pulse">
+    <div className="w-full min-h-screen bg-black text-accent-content animate-pulse">
 
       {/* ================= NAVBAR ================= */}
-      <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-white/5">
+      <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-accent-content/5">
 
         {/* Logo */}
         <div className="flex items-center gap-3">

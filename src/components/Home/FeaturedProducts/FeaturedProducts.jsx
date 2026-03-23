@@ -9,11 +9,11 @@ export default async function FeaturedProducts() {
 
       {/* Header Section */}
       <div className="text-center mb-16">
-        <span className="inline-block bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">
+        <span className="inline-block bg-primary-color/10 border border-primary-color/30 text-primary-color text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">
           Our Collection
         </span>
-        <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
-          Premium <span className="text-[#d4af37]">Timepieces</span>
+        <h2 className="text-4xl md:text-5xl font-serif font-bold text-accent-content mb-4">
+          Premium <span className="text-primary-color">Timepieces</span>
         </h2>
         <p className="text-gray-500 text-sm max-w-xl mx-auto leading-relaxed">
           Discover our handpicked selection of luxury apparel, each crafted with precision and elegance.
@@ -30,10 +30,10 @@ export default async function FeaturedProducts() {
           {products?.map((product) => (
             <div
               key={product._id}
-              className="group relative bg-[#11151c] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:border-[#d4af37]/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+              className="group relative bg-[#11151c] border border-accent-content/5 rounded-2xl p-6 transition-all duration-300 hover:border-primary-color/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
             >
               {/* Discount Badge */}
-              <div className="absolute top-5 left-5 z-10 bg-red-600 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-lg">
+              <div className="absolute top-5 left-5 z-10 bg-secondary text-accent-content text-[10px] font-black px-2.5 py-1 rounded-md shadow-lg">
                 -{product.discount}%
               </div>
 
@@ -52,7 +52,7 @@ export default async function FeaturedProducts() {
 
               {/* Product Info */}
               <div className="space-y-2">
-                <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-[#d4af37] transition-colors">
+                <h3 className="text-xl font-bold text-accent-content tracking-tight group-hover:text-primary-color transition-colors">
                   {product.name}
                 </h3>
                 <p className="text-gray-500 text-xs leading-relaxed mb-4">
@@ -60,7 +60,7 @@ export default async function FeaturedProducts() {
                 </p>
 
                 <div className="flex items-baseline gap-3 pt-2">
-                  <span className="text-2xl font-bold text-[#d4af37]">
+                  <span className="text-2xl font-bold text-primary-color">
                     ৳{product.price}
                   </span>
                   <span className="text-sm text-gray-600 line-through">
@@ -72,7 +72,7 @@ export default async function FeaturedProducts() {
               {/* Order Button */}
               <Link
                 href={`/?productId=${product._id}#order`}
-                className="mt-6 w-full flex items-center justify-center bg-[#d4af37] hover:bg-[#b8962f] text-black text-sm font-bold py-4 rounded-xl transition-all active:scale-95 shadow-lg"
+                className="mt-6 w-full flex items-center justify-center bg-primary-color hover:bg-primary-color text-black text-sm font-bold py-4 rounded-xl transition-all active:scale-95 shadow-lg"
               >
                 Order Now
               </Link>

@@ -51,10 +51,10 @@ const SaleCountDown = () => {
   return (
     <div className="w-full bg-[#1C1A18] py-16 px-4 text-center">
       <div className="max-w-6xl mx-auto rounded-xl">
-        <p className="inline-block px-3 py-1 rounded-full text-sm mb-3 bg-[#622c1c] text-[#F8C8A0]">
+        <p className="inline-block px-3 py-1 rounded-full text-sm mb-3 bg-[#622c1c] text-primary-color">
           🔥 Limited Time Only
         </p>
-        <h1 className="text-2xl md:text-4xl font-bold mb-2 text-white">
+        <h1 className="text-2xl md:text-4xl font-bold mb-2 text-accent-content">
           {title}
         </h1>
         <p className="mb-8 text-[#B0B0B0] text-lg">
@@ -71,7 +71,7 @@ const SaleCountDown = () => {
           {timeBlock(timeLeft.seconds, "SECONDS")}
         </div>
 
-        <Link href="#products" className="inline-block bg-primary-color hover:bg-white text-black font-bold py-3 px-8 rounded shadow-lg transition-colors">
+        <Link href="#products" className="inline-block bg-primary-color hover:bg-accent-content text-accent font-bold py-3 px-8 rounded shadow-lg transition-colors">
           Claim Your Discount
         </Link>
       </div>

@@ -28,12 +28,12 @@ export default function HeroBannerDashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSaving(true);
-    
+
     // Call server action to update the banner
     const result = await updateHeroBanner(title, description, imageUrl);
-    
+
     setIsSaving(false);
-    
+
     if (result.success) {
       Swal.fire({
         icon: "success",
@@ -63,9 +63,9 @@ export default function HeroBannerDashboard() {
   }
 
   return (
-    <div className="max-w-4xl max-h-4xl h-full mx-auto p-8 bg-[#11151c] rounded-2xl shadow-xl border border-white/5">
-      <h1 className="text-2xl font-bold text-white mb-8">Manage Hero Banner</h1>
-      
+    <div className="max-w-4xl max-h-4xl h-full mx-auto p-8 bg-[#11151c] rounded-2xl shadow-xl border border-accent-content/5">
+      <h1 className="text-2xl font-bold text-accent-content mb-8">Manage Hero Banner</h1>
+
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -76,7 +76,7 @@ export default function HeroBannerDashboard() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             rows={4}
-            className="w-full bg-[#080808] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-transparent transition-all"
+            className="w-full bg-[#080808] border border-accent-content/10 rounded-xl px-4 py-3 text-accent-content placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-transparent transition-all"
             placeholder="Enter hero banner title..."
             required
           />
@@ -90,7 +90,7 @@ export default function HeroBannerDashboard() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
-            className="w-full bg-[#080808] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-transparent transition-all"
+            className="w-full bg-[#080808] border border-accent-content/10 rounded-xl px-4 py-3 text-accent-content placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-transparent transition-all"
             placeholder="Experience the future of online shopping..."
             required
           />
@@ -104,7 +104,7 @@ export default function HeroBannerDashboard() {
             type="url"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
-            className="w-full bg-[#080808] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-transparent transition-all"
+            className="w-full bg-[#080808] border border-accent-content/10 rounded-xl px-4 py-3 text-accent-content placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-transparent transition-all"
             placeholder="https://example.com/image.jpg"
             required
           />
@@ -113,19 +113,19 @@ export default function HeroBannerDashboard() {
         {/* Preview section */}
         {imageUrl && (
           <div className="mt-4">
-             <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-300 mb-2">
               Image Preview
             </label>
-            <div className="relative w-full h-64 rounded-xl overflow-hidden border border-white/10 mt-2 bg-black/50 flex items-center justify-center">
-              <Image 
-                  src={imageUrl} 
-                  alt="Banner preview" 
-                  className="w-full h-full object-cover"
-                  width={800}
-                  height={400}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                  }}
+            <div className="relative w-full h-64 rounded-xl overflow-hidden border border-accent-content/10 mt-2 bg-black/50 flex items-center justify-center">
+              <Image
+                src={imageUrl}
+                alt="Banner preview"
+                className="w-full h-full object-cover"
+                width={800}
+                height={400}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
               />
             </div>
           </div>
@@ -135,7 +135,7 @@ export default function HeroBannerDashboard() {
           <button
             type="submit"
             disabled={isSaving}
-            className={`px-6 py-3 bg-primary-color hover:bg-white text-black font-bold rounded-xl transition-all shadow-[0_4px_15px_-5px_rgba(var(--primary-rgb),0.5)] ${isSaving ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-0.5'}`}
+            className={`px-6 py-3 bg-primary-color hover:bg-accent-content text-black font-bold rounded-xl transition-all shadow-[0_4px_15px_-5px_rgba(var(--primary-rgb),0.5)] ${isSaving ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-0.5'}`}
           >
             {isSaving ? "Saving..." : "Save Changes"}
           </button>

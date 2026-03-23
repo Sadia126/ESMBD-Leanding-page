@@ -9,10 +9,10 @@ export default function AdminLayout({ children }) {
   return (
     <div className="flex min-h-screen bg-[#080808]">
       {/* Mobile Header */}
-      <div className="md:hidden fixed top-0 w-full h-16 bg-[#11151c] border-b border-white/5 flex items-center px-4 z-40">
-        <button 
-          onClick={() => setIsSidebarOpen(true)} 
-          className="text-gray-400 hover:text-white"
+      <div className="md:hidden fixed top-0 w-full h-16 bg-[#11151c] border-b border-accent-content/5 flex items-center px-4 z-40">
+        <button
+          onClick={() => setIsSidebarOpen(true)}
+          className="text-gray-400 hover:text-accent-content"
         >
           <Menu size={24} />
         </button>
@@ -20,10 +20,9 @@ export default function AdminLayout({ children }) {
       </div>
 
       {/* Sidebar - Full screen on mobile */}
-      <aside 
-        className={`fixed inset-y-0 left-0 w-full md:w-64 z-50 transform transition-transform duration-300 ease-in-out md:translate-x-0 ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+      <aside
+        className={`fixed inset-y-0 left-0 w-full md:w-64 z-50 transform transition-transform duration-300 ease-in-out md:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <Sidebar onClose={() => setIsSidebarOpen(false)} />
       </aside>
@@ -31,10 +30,10 @@ export default function AdminLayout({ children }) {
       {/* Main Content */}
       <div className="flex-1 md:pl-64 pt-16 md:pt-0 w-full">
         {/* Desktop Header */}
-        {/* <header className="hidden md:flex h-16 border-b border-white/5 items-center px-8 text-gray-400">
+        {/* <header className="hidden md:flex h-16 border-b border-accent-content/5 items-center px-8 text-gray-400">
            Admin / Dashboard
         </header> */}
-        
+
         <main className="p-4 md:p-6 w-full max-w-full overflow-hidden">
           {children}
         </main>

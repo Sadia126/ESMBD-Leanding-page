@@ -100,15 +100,15 @@ export default function OrderForm({ products }) {
 
   return (
     <>
-      <section id={`order`} className="w-full min-h-screen bg-[#0a0c12] text-white py-12 px-4 md:px-10 lg:px-20">
+      <section id={`order`} className="w-full min-h-screen bg-[#0a0c12] text-accent-content py-12 px-4 md:px-10 lg:px-20">
 
         {/* Header */}
         <div className="w-full text-center mb-12">
-          <span className="border border-[#d4af37] text-[#d4af37] px-6 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.2em]">
+          <span className="border border-primary-color text-primary-color px-6 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.2em]">
             Premium Checkout
           </span>
           <h1 className="text-4xl md:text-6xl font-serif font-bold mt-6 mb-4">
-            Complete Your <span className="text-[#d4af37]">Purchase</span>
+            Complete Your <span className="text-primary-color">Purchase</span>
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto italic">
             আপনার পছন্দের ঘড়িটি অর্ডার করতে নিচের ফর্মটি সঠিক তথ্য দিয়ে পূরণ করুন।
@@ -121,7 +121,7 @@ export default function OrderForm({ products }) {
           <div className="lg:col-span-7 space-y-8">
             <div className="bg-[#11151c] border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
               <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
-                <ImageIcon className="text-[#d4af37] w-5 h-5" /> Product Settings
+                <ImageIcon className="text-primary-color w-5 h-5" /> Product Settings
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -164,7 +164,7 @@ export default function OrderForm({ products }) {
                   <select
                     value={selectedProduct || ""}
                     onChange={(e) => setSelectedProduct(e.target.value)}
-                    className="w-full bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-3 focus:border-[#d4af37] outline-none"
+                    className="w-full bg-[#1c2128] border border-gray-700 rounded-lg px-4 py-3 focus:border-primary-color outline-none"
                   >
                     <option disabled value="">Select Product</option>
                     {products?.map((product) => (
@@ -235,9 +235,9 @@ export default function OrderForm({ products }) {
 
           {/* Right Side: Payment & Order Summary */}
           <div className="lg:col-span-5 space-y-8">
-            <div className="bg-[#11151c] border border-[#d4af37]/30 rounded-2xl p-6 md:p-8 shadow-2xl sticky top-8">
+            <div className="bg-[#11151c] border border-primary-color/30 rounded-2xl p-6 md:p-8 shadow-2xl sticky top-8">
               <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
-                <CreditCard className="text-[#d4af37] w-5 h-5" /> Payment Method
+                <CreditCard className="text-primary-color w-5 h-5" /> Payment Method
               </h3>
 
               {/* Payment Options */}
@@ -249,7 +249,7 @@ export default function OrderForm({ products }) {
                 ].map((method) => (
                   <label
                     key={method.id}
-                    className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${paymentMethod === method.id ? 'border-[#d4af37] bg-[#d4af37]/10' : 'border-gray-800 bg-[#0a0c12]'}`}
+                    className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${paymentMethod === method.id ? 'border-primary-color bg-primary-color/10' : 'border-gray-800 bg-[#0a0c12]'}`}
                   >
                     <div className="flex items-center gap-3">
                       <input
@@ -258,7 +258,7 @@ export default function OrderForm({ products }) {
                         value={method.id}
                         checked={paymentMethod === method.id}
                         onChange={(e) => setPaymentMethod(e.target.value)}
-                        className="accent-[#d4af37] w-4 h-4"
+                        className="accent-primary-color w-4 h-4"
                       />
                       <div>
                         <p className="font-bold text-sm">{method.label}</p>
@@ -272,14 +272,14 @@ export default function OrderForm({ products }) {
               {/* Transaction ID Field (Only shows for bkash/nagad) */}
               {paymentMethod !== 'cod' && (
                 <div className="mb-6 animate-in fade-in slide-in-from-top-2">
-                  <label className="text-xs font-bold uppercase text-[#d4af37] block mb-2">Transaction ID *</label>
+                  <label className="text-xs font-bold uppercase text-primary-color block mb-2">Transaction ID *</label>
                   <input
                     required
                     type="text"
                     onChange={handleChange}
                     name="transactionId"
                     placeholder="Enter TrxID (e.g. 8N7X6W5Q)"
-                    className="w-full bg-[#0a0c12] border border-[#d4af37]/50 rounded-lg px-4 py-3 focus:ring-1 focus:ring-[#d4af37] outline-none text-white font-mono"
+                    className="w-full bg-[#0a0c12] border border-primary-color/50 rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary-color outline-none text-accent-content font-mono"
                   />
                 </div>
               )}
@@ -300,7 +300,7 @@ export default function OrderForm({ products }) {
                 </div>
               </div>
 
-              <button type="submit" className={`w-full ${form.district === "" || form.city === "" || form.address === "" || form.customerName === "" || form.phone === "" || selectedProduct == null ? "bg-accent/20 cursor-not-allowed text-accent-content/50" : "bg-primary-color hover:bg-[#b8962f] text-accent"} py-5 font-bold rounded-xl mt-8 transition-transform active:scale-95 shadow-[0_10px_30px_rgba(212,175,55,0.2)]`}>
+              <button type="submit" className={`w-full ${form.district === "" || form.city === "" || form.address === "" || form.customerName === "" || form.phone === "" || selectedProduct == null ? "bg-accent/20 cursor-not-allowed text-accent-content/50" : "bg-primary-color hover:bg-primary-color text-accent"} py-5 font-bold rounded-xl mt-8 transition-transform active:scale-95 shadow-[0_10px_30px_rgba(212,175,55,0.2)]`}>
                 CONFIRM ORDER NOW
               </button>
             </div>

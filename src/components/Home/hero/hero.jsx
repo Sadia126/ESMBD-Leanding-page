@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image"; 
-import { ShoppingBag,ArrowRight, Zap } from "lucide-react";
+import Image from "next/image";
+import { ShoppingBag, ArrowRight, Zap } from "lucide-react";
 import { getHeroBanner } from "../../../action/heroBanner";
 
 const categories = [
@@ -23,7 +23,7 @@ export default async function Hero() {
 
   return (
     <section className="bg-[#080808] relative overflow-hidden font-sans">
-      
+
       {/* Background Glow Orbs */}
       <div className="pointer-events-none absolute -top-32 right-[-5%] w-[600px] h-[600px] rounded-full bg-primary-color/10 blur-[140px] animate-pulse" />
       <div className="pointer-events-none absolute bottom-[-10%] -left-20 w-[500px] h-[500px] rounded-full bg-secondary/5 blur-[120px]" />
@@ -39,13 +39,13 @@ export default async function Hero() {
             </span>
 
             {banner?.title ? (
-              <h1 
-                className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight"
+              <h1
+                className="text-5xl md:text-7xl font-black text-accent-content leading-[1.05] tracking-tight"
                 dangerouslySetInnerHTML={{ __html: banner.title.replace(/className=/g, 'class=') }}
               />
             ) : (
-              <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight">
-                Shop <span className="text-transparent bg-clip-text bg-linear-to-r from-primary-color to-orange-400">Smarter</span>,<br /> 
+              <h1 className="text-5xl md:text-7xl font-black text-accent-content leading-[1.05] tracking-tight">
+                Shop <span className="text-transparent bg-clip-text bg-linear-to-r from-primary-color to-primary-color">Smarter</span>,<br />
                 Save Big.
               </h1>
             )}
@@ -58,12 +58,12 @@ export default async function Hero() {
           <div className="flex flex-wrap gap-4">
             <Link
               href="#products"
-              className="group flex items-center gap-3 bg-primary-color hover:bg-white text-black font-bold px-8 py-4 rounded-2xl transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(var(--primary-rgb),0.5)] hover:-translate-y-1"
+              className="group flex items-center gap-3 bg-primary-color hover:bg-accent-content text-accent font-bold px-8 py-4 rounded-2xl transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(var(--primary-rgb),0.5)] hover:-translate-y-1"
             >
               <ShoppingBag className="w-5 h-5" />
               Start Shopping
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>   
+            </Link>
           </div>
 
           {/* <StatsCounter stats={stats} /> */}
@@ -73,27 +73,27 @@ export default async function Hero() {
         <div className="relative group">
           {/* Animated Outer Glow */}
           <div className="absolute -inset-1 bg-linear-to-r from-primary-color to-secondary rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-          
-          <div className="relative bg-[#0f0f0f] border border-white/10 rounded-2xl p-4 overflow-hidden shadow-2xl">
-            
+
+          <div className="relative bg-[#0f0f0f] border border-accent-content/10 rounded-2xl p-4 overflow-hidden shadow-2xl">
+
             {/* Top Image Section */}
             <div className="relative h-[400px] w-full rounded-2xl overflow-hidden">
-                {/* Replace this URL with your actual product/hero image */}
-              <Image 
-                src={banner?.imageUrl || "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop"} 
+              {/* Replace this URL with your actual product/hero image */}
+              <Image
+                src={banner?.imageUrl || "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop"}
                 alt="New Arrivals"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 width={840}
                 height={500}
               />
               <div className="absolute inset-0 bg-linear-to-t from-[#0f0f0f] via-transparent to-transparent" />
-              
+
               {/* Floating Badges */}
               <div className="absolute top-6 right-6 flex flex-col gap-2 items-end">
                 <span className="bg-primary-color text-black text-[12px] font-black px-4 py-1.5 rounded-full shadow-xl animate-bounce">
                   UP TO 70% OFF
                 </span>
-                <span className="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full border border-white/20">
+                <span className="bg-accent/60 backdrop-blur-md text-accent-content text-[10px] font-bold px-3 py-1.5 rounded-full border border-accent-content/20">
                   Limited Edition
                 </span>
               </div>
@@ -101,15 +101,15 @@ export default async function Hero() {
 
             {/* Card Content Overlay */}
             <div className="hidden md:block absolute bottom-10 left-10 right-10">
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl">
-                <h3 className="text-white font-bold text-xl mb-2">Curated Collections</h3>
+              <div className="bg-accent-content/5 backdrop-blur-xl border border-accent-content/10 p-6 rounded-2xl">
+                <h3 className="text-accent-content font-bold text-xl mb-2">Curated Collections</h3>
                 <p className="text-gray-400 text-sm mb-5 leading-snug">Explore hand-picked items tailored for your lifestyle.</p>
-                
+
                 <div className="flex flex-wrap gap-2">
                   {categories.map((cat) => (
                     <span
                       key={cat.label}
-                      className="bg-white/10 border border-white/5 text-gray-200 text-[11px] px-3 py-1.5 rounded-lg hover:bg-primary-color hover:text-black transition-colors cursor-pointer font-medium"
+                      className="bg-accent border border-accent-content/5 text-gray-200 text-[11px] px-3 py-1.5 rounded-lg hover:bg-primary-color hover:text-black transition-colors cursor-pointer font-medium"
                     >
                       {cat.emoji} {cat.label}
                     </span>
@@ -118,19 +118,19 @@ export default async function Hero() {
               </div>
             </div>
           </div>
-          
+
           {/* Small Decorative Card */}
-          <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-2xl hidden md:flex items-center gap-4 animate-float border-4 border-[#080808]">
-             <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                <Zap className="w-5 h-5 text-btn-color fill-current" />
-             </div>
-             <div>
-                <p className="text-black text-xs font-black uppercase leading-none">Fast Delivery</p>
-                <p className="text-gray-500 text-[10px]">Within 24 Hours</p>
-             </div>
+          <div className="absolute -bottom-6 -left-6 bg--accent-content p-4 rounded-2xl shadow-2xl hidden md:flex items-center gap-4 animate-float border-4 border-accent-content">
+            <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+              <Zap className="w-5 h-5 text-btn-color fill-current" />
+            </div>
+            <div>
+              <p className="text-accent-content text-xs font-black uppercase leading-none">Fast Delivery</p>
+              <p className="text-gray-500 text-[10px]">Within 24 Hours</p>
+            </div>
           </div>
         </div>
-      </div>   
+      </div>
     </section>
   );
 }

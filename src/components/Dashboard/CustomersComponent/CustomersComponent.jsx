@@ -6,7 +6,7 @@ import { Search, Mail, Phone, MapPin } from 'lucide-react';
 export default function CustomersComponent({ customers = [] }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredCustomers = customers.filter(customer => 
+  const filteredCustomers = customers.filter(customer =>
     (customer.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
     (customer.email || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
     (customer.phone || "").includes(searchTerm)
@@ -17,7 +17,7 @@ export default function CustomersComponent({ customers = [] }) {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-bold text-white font-serif">
+          <h2 className="text-3xl font-bold text-accent-content font-serif">
             Customer <span className="text-[#d4af37]">Directory</span>
           </h2>
           <p className="text-gray-500 text-sm mt-1">আপনার রেজিস্ট্রিকৃত কাস্টমারদের তালিকা এবং তাদের কেনাকাটার ইতিহাস।</p>
@@ -27,38 +27,38 @@ export default function CustomersComponent({ customers = [] }) {
       {/* Search Bar */}
       <div className="relative w-full md:w-1/2">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
-        <input 
+        <input
           type="text"
           value={searchTerm}
           placeholder="Search by name, email or phone..."
-          className="w-full bg-[#11151c] border border-white/5 rounded-xl py-3 pl-12 pr-4 text-sm focus:border-[#d4af37]/50 outline-none transition-all text-white"
+          className="w-full bg-[#11151c] border border-accent-content/5 rounded-xl py-3 pl-12 pr-4 text-sm focus:border-[#d4af37]/50 outline-none transition-all text-accent-content"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
       {/* Customers Table */}
-      <div className="bg-[#11151c] border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
+      <div className="bg-[#11151c] border border-accent-content/5 rounded-2xl overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
-            <thead className="bg-[#0a0c12] text-gray-500 text-[10px] uppercase font-bold tracking-[0.2em] border-b border-white/5">
+            <thead className="bg-[#0a0c12] text-gray-500 text-[10px] uppercase font-bold tracking-[0.2em] border-b border-accent-content/5">
               <tr>
                 <th className="px-8 py-6">Customer Info</th>
                 <th className="px-8 py-6">Contact</th>
                 <th className="px-8 py-6">Location</th>
                 <th className="px-8 py-6 text-center">Orders</th>
-                <th className="px-8 py-6">Total Spent</th>         
+                <th className="px-8 py-6">Total Spent</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-accent-content/5">
               {filteredCustomers.map((customer) => (
-                <tr key={customer._id} className="hover:bg-white/2 transition-colors group">
+                <tr key={customer._id} className="hover:bg-accent-content/2 transition-colors group">
                   <td className="px-8 py-5">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-linear-to-br from-[#d4af37]/20 to-transparent flex items-center justify-center text-primary-color font-bold border border-[#d4af37]/20">
                         {customer.name ? customer.name.charAt(0).toUpperCase() : "?"}
                       </div>
                       <div>
-                        <div className="text-sm font-bold text-white">{customer.name}</div>
+                        <div className="text-sm font-bold text-accent-content">{customer.name}</div>
                         <div className="text-[10px] text-gray-500 font-mono">ID: {customer._id.slice(0, 8)}</div>
                       </div>
                     </div>
@@ -79,7 +79,7 @@ export default function CustomersComponent({ customers = [] }) {
                     </div>
                   </td>
                   <td className="px-8 py-5 text-center">
-                    <span className="bg-white/5 px-3 py-1 rounded-lg text-xs font-bold text-white">
+                    <span className="bg-accent-content/5 px-3 py-1 rounded-lg text-xs font-bold text-accent-content">
                       {customer.totalOrders}
                     </span>
                   </td>
@@ -90,10 +90,10 @@ export default function CustomersComponent({ customers = [] }) {
               ))}
             </tbody>
           </table>
-          
+
           {filteredCustomers.length === 0 && (
             <div className="p-8 text-center text-gray-500 text-sm">
-                No customers found matching your search.
+              No customers found matching your search.
             </div>
           )}
         </div>

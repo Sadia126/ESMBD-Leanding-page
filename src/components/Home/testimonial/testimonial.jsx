@@ -12,7 +12,7 @@ const avatarColors = [
 const stats = [
   { value: "4.9★", label: "Overall Rating" },
   { value: "20K+", label: "Happy Customers" },
-  { value: "98%",  label: "Satisfaction Rate" },
+  { value: "98%", label: "Satisfaction Rate" },
   { value: "15K+", label: "Reviews" },
 ];
 
@@ -42,7 +42,7 @@ export default async function Testimonials() {
         <span className="inline-flex items-center gap-2 bg-primary-color/10 border border-primary-color/25 text-primary-color text-sm font-black px-5 py-2 rounded-full uppercase tracking-widest mb-4">
           ★ Customer Reviews
         </span>
-        <h2 className="text-4xl font-bold text-white mb-3">
+        <h2 className="text-4xl font-bold text-accent-content mb-3">
           What Our <span className="text-primary-color">Customers</span> Say
         </h2>
         <p className="text-gray-400 text-base max-w-md mx-auto">
@@ -51,7 +51,7 @@ export default async function Testimonials() {
       </div>
 
       {/* ===== STATS BAR ===== */}
-      <div className="flex flex-wrap justify-center gap-10 bg-white/2 border border-white/7 rounded-2xl px-8 py-6 max-w-2xl mx-auto mb-12">
+      <div className="flex flex-wrap justify-center gap-10 bg-accent-content/2 border border-accent-content/7 rounded-2xl px-8 py-6 max-w-2xl mx-auto mb-12">
         {stats.map((stat, i) => (
           <div key={i} className="text-center">
             <p className="text-3xl font-bold text-primary-color">{stat.value}</p>
@@ -67,11 +67,10 @@ export default async function Testimonials() {
           return (
             <div
               key={i}
-              className={`relative rounded-2xl p-7 border transition-all hover:-translate-y-1 ${
-                t.featured
-                  ? "bg-linear-to-br from-primary-color/8 to-primary-color/3 border-primary-color/25"
-                  : "bg-white/3 border-white/8 hover:border-primary-color/25"
-              }`}
+              className={`relative rounded-2xl p-7 border transition-all hover:-translate-y-1 ${t.featured
+                ? "bg-linear-to-br from-primary-color/8 to-primary-color/3 border-primary-color/25"
+                : "bg-accent-content/3 border-accent-content/8 hover:border-primary-color/25"
+                }`}
             >
               {/* Category Tag */}
               {t.category && (
@@ -94,16 +93,16 @@ export default async function Testimonials() {
               </p>
 
               {/* Divider */}
-              <div className="h-px bg-white/7 mb-5" />
+              <div className="h-px bg-accent-content/7 mb-5" />
 
               {/* Reviewer */}
               <div className="flex items-center gap-3">
                 <div className={`w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${colorClass}`}>
-                  {t.name ? t.name.slice(0,2).toUpperCase() : "??"}
+                  {t.name ? t.name.slice(0, 2).toUpperCase() : "??"}
                 </div>
                 <div>
-                  <p className="text-white text-sm font-bold">{t.name}</p>
-                  <p className="text-gray-500 text-xs mt-0.5">{t.location}</p>  
+                  <p className="text-accent-content text-sm font-bold">{t.name}</p>
+                  <p className="text-gray-500 text-xs mt-0.5">{t.location}</p>
                 </div>
               </div>
             </div>

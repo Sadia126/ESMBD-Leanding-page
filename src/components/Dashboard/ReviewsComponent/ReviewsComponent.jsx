@@ -10,7 +10,7 @@ export default function ReviewsComponent({ reviews }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingReview, setEditingReview] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    
+
     // Form state
     const [formData, setFormData] = useState({
         name: "",
@@ -84,7 +84,7 @@ export default function ReviewsComponent({ reviews }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        
+
         let result;
         if (editingReview) {
             result = await updateReview(editingReview, formData);
@@ -127,7 +127,7 @@ export default function ReviewsComponent({ reviews }) {
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-accent-content">
                         Review <span className="text-primary-color">Management</span>
                     </h2>
                     <p className="text-gray-500 text-xs sm:text-sm mt-1">
@@ -149,7 +149,7 @@ export default function ReviewsComponent({ reviews }) {
                     <input
                         type="text"
                         placeholder="Search reviews by name or content..."
-                        className="w-full bg-[#11151c] border border-white/5 rounded-lg py-2 pl-9 pr-3 text-xs placeholder:text-accent-content text-accent-content sm:text-sm outline-none focus:border-[#d4af37]/50"
+                        className="w-full bg-[#11151c] border border-accent-content/5 rounded-lg py-2 pl-9 pr-3 text-xs placeholder:text-accent-content text-accent-content sm:text-sm outline-none focus:border-[#d4af37]/50"
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
@@ -159,9 +159,9 @@ export default function ReviewsComponent({ reviews }) {
             <>
                 <div className="block xl:hidden space-y-3">
                     {filteredReviews.map(review => (
-                        <div key={review._id} className="bg-[#11151c] border border-white/5 rounded-xl p-4 space-y-2">
+                        <div key={review._id} className="bg-[#11151c] border border-accent-content/5 rounded-xl p-4 space-y-2">
 
-                            <div className="flex justify-between items-start text-white">
+                            <div className="flex justify-between items-start text-accent-content">
                                 <div>
                                     <p className="font-semibold text-sm">{review.name}</p>
                                     <p className="text-[10px] text-gray-400">{review.location}</p>
@@ -176,16 +176,16 @@ export default function ReviewsComponent({ reviews }) {
                             <p className="text-xs text-gray-400 line-clamp-2 italic">
                                 "{review.review}"
                             </p>
-                            
+
                             <div className="flex justify-between items-center text-[10px] font-mono">
                                 <span className="text-[#d4af37]">{review.category || "General"}</span>
                                 {review.featured && <span className="bg-primary-color/20 text-primary-color px-2 py-0.5 rounded">Featured</span>}
                             </div>
 
-                            <div className="flex justify-end gap-2 pt-2 border-t border-white/5">
+                            <div className="flex justify-end gap-2 pt-2 border-t border-accent-content/5">
                                 <button
                                     onClick={() => handleOpenModal(review)}
-                                    className="p-2 bg-white/5 rounded-lg hover:bg-white/10 text-white"
+                                    className="p-2 bg-accent-content/5 rounded-lg hover:bg-accent-content/10 text-accent-content"
                                 >
                                     <Edit size={14} />
                                 </button>
@@ -203,12 +203,12 @@ export default function ReviewsComponent({ reviews }) {
                 </div>
 
                 {/* ================= DESKTOP TABLE ================= */}
-                <div className="hidden xl:block bg-[#11151c] border border-white/5 rounded-xl overflow-hidden">
+                <div className="hidden xl:block bg-[#11151c] border border-accent-content/5 rounded-xl overflow-hidden">
 
                     <div className="w-full overflow-x-auto">
                         <table className="w-full text-left">
 
-                            <thead className="bg-[#0a0c12] text-gray-500 text-[10px] uppercase border-b border-white/5">
+                            <thead className="bg-[#0a0c12] text-gray-500 text-[10px] uppercase border-b border-accent-content/5">
                                 <tr>
                                     <th className="px-6 py-4">Reviewer</th>
                                     <th className="px-6 py-4">Rating</th>
@@ -219,12 +219,12 @@ export default function ReviewsComponent({ reviews }) {
                                 </tr>
                             </thead>
 
-                            <tbody className="divide-y divide-white/5">
+                            <tbody className="divide-y divide-accent-content/5">
                                 {filteredReviews.map(review => (
-                                    <tr key={review._id} className="hover:bg-white/5">
+                                    <tr key={review._id} className="hover:bg-accent-content/5">
 
                                         <td className="px-6 py-4">
-                                            <p className="text-sm text-white font-semibold">{review.name}</p>
+                                            <p className="text-sm text-accent-content font-semibold">{review.name}</p>
                                             <p className="text-xs text-gray-400">{review.location}</p>
                                         </td>
 
@@ -241,7 +241,7 @@ export default function ReviewsComponent({ reviews }) {
                                         </td>
 
                                         <td className="px-6 py-4 text-xs">
-                                            <span className="bg-white/5 text-gray-300 px-2 py-1 rounded">
+                                            <span className="bg-accent-content/5 text-gray-300 px-2 py-1 rounded">
                                                 {review.category || "General"}
                                             </span>
                                         </td>
@@ -285,19 +285,19 @@ export default function ReviewsComponent({ reviews }) {
                     </div>
                 </div>
             </>
-            
+
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-                    <div className="w-full max-w-lg bg-[#11151c] border border-white/10 rounded-2xl shadow-2xl my-8">
-                        
-                        <div className="flex justify-between items-center p-4 sm:p-6 border-b border-white/10">
-                            <h3 className="text-lg sm:text-xl font-bold text-white">
+                    <div className="w-full max-w-lg bg-[#11151c] border border-accent-content/10 rounded-2xl shadow-2xl my-8">
+
+                        <div className="flex justify-between items-center p-4 sm:p-6 border-b border-accent-content/10">
+                            <h3 className="text-lg sm:text-xl font-bold text-accent-content">
                                 {editingReview ? "Edit Review" : "Add New Review"}
                             </h3>
                             <button
                                 onClick={handleCloseModal}
-                                className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"
+                                className="p-2 text-gray-400 hover:text-accent-content bg-accent-content/5 rounded-full transition-colors"
                             >
                                 <X size={18} />
                             </button>
@@ -311,8 +311,8 @@ export default function ReviewsComponent({ reviews }) {
                                         required
                                         type="text"
                                         value={formData.name}
-                                        onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                        className="w-full bg-[#080808] border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-[#d4af37]/50"
+                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                        className="w-full bg-[#080808] border border-accent-content/10 rounded-lg px-3 py-2 text-sm text-accent-content outline-none focus:border-[#d4af37]/50"
                                         placeholder="e.g. Rahim Ahmed"
                                     />
                                 </div>
@@ -321,8 +321,8 @@ export default function ReviewsComponent({ reviews }) {
                                     <input
                                         type="text"
                                         value={formData.location}
-                                        onChange={(e) => setFormData({...formData, location: e.target.value})}
-                                        className="w-full bg-[#080808] border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-[#d4af37]/50"
+                                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                                        className="w-full bg-[#080808] border border-accent-content/10 rounded-lg px-3 py-2 text-sm text-accent-content outline-none focus:border-[#d4af37]/50"
                                         placeholder="e.g. Dhaka, BD"
                                     />
                                 </div>
@@ -337,8 +337,8 @@ export default function ReviewsComponent({ reviews }) {
                                         min="1"
                                         max="5"
                                         value={formData.rating}
-                                        onChange={(e) => setFormData({...formData, rating: parseInt(e.target.value)})}
-                                        className="w-full bg-[#080808] border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-[#d4af37]/50"
+                                        onChange={(e) => setFormData({ ...formData, rating: parseInt(e.target.value) })}
+                                        className="w-full bg-[#080808] border border-accent-content/10 rounded-lg px-3 py-2 text-sm text-accent-content outline-none focus:border-[#d4af37]/50"
                                     />
                                 </div>
                                 <div>
@@ -346,8 +346,8 @@ export default function ReviewsComponent({ reviews }) {
                                     <input
                                         type="text"
                                         value={formData.category}
-                                        onChange={(e) => setFormData({...formData, category: e.target.value})}
-                                        className="w-full bg-[#080808] border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-[#d4af37]/50"
+                                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                        className="w-full bg-[#080808] border border-accent-content/10 rounded-lg px-3 py-2 text-sm text-accent-content outline-none focus:border-[#d4af37]/50"
                                         placeholder="e.g. Fashion, Electronics"
                                     />
                                 </div>
@@ -359,8 +359,8 @@ export default function ReviewsComponent({ reviews }) {
                                     required
                                     rows="4"
                                     value={formData.review}
-                                    onChange={(e) => setFormData({...formData, review: e.target.value})}
-                                    className="w-full bg-[#080808] border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-[#d4af37]/50 resize-none"
+                                    onChange={(e) => setFormData({ ...formData, review: e.target.value })}
+                                    className="w-full bg-[#080808] border border-accent-content/10 rounded-lg px-3 py-2 text-sm text-accent-content outline-none focus:border-[#d4af37]/50 resize-none"
                                     placeholder="Write the customer's review here..."
                                 ></textarea>
                             </div>
@@ -370,28 +370,27 @@ export default function ReviewsComponent({ reviews }) {
                                     type="checkbox"
                                     id="featured"
                                     checked={formData.featured}
-                                    onChange={(e) => setFormData({...formData, featured: e.target.checked})}
-                                    className="w-4 h-4 rounded bg-[#080808] border-white/10 accent-[#d4af37]"
+                                    onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
+                                    className="w-4 h-4 rounded bg-[#080808] border-accent-content/10 accent-[#d4af37]"
                                 />
                                 <label htmlFor="featured" className="text-sm text-gray-300">
                                     Mark as Featured (Highlights review with special styling)
                                 </label>
                             </div>
 
-                            <div className="pt-4 border-t border-white/10 flex justify-end gap-3">
+                            <div className="pt-4 border-t border-accent-content/10 flex justify-end gap-3">
                                 <button
                                     type="button"
                                     onClick={handleCloseModal}
-                                    className="px-4 py-2 text-sm font-bold text-gray-400 hover:text-white transition-colors"
+                                    className="px-4 py-2 text-sm font-bold text-gray-400 hover:text-accent-content transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className={`px-6 py-2 bg-[#d4af37] text-black text-sm font-bold rounded-lg transition-colors ${
-                                        isSubmitting ? "opacity-70 cursor-not-allowed" : "hover:bg-[#b5952f]"
-                                    }`}
+                                    className={`px-6 py-2 bg-[#d4af37] text-black text-sm font-bold rounded-lg transition-colors ${isSubmitting ? "opacity-70 cursor-not-allowed" : "hover:bg-[#b5952f]"
+                                        }`}
                                 >
                                     {isSubmitting ? "Saving..." : "Save Review"}
                                 </button>

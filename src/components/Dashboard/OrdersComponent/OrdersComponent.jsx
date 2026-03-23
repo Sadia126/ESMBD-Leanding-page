@@ -5,11 +5,11 @@ import { deleteOrder, updateOrderStatus } from '@/action/order';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 
-export default function OrdersComponent({orders}) {
+export default function OrdersComponent({ orders }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
-const router = useRouter()
+  const router = useRouter()
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({
       title: "Are you sure?",
@@ -26,7 +26,7 @@ const router = useRouter()
     if (confirm.isConfirmed) {
       const result = await deleteOrder(id);
       if (result.success) {
-       router.refresh()
+        router.refresh()
       }
     }
   };
@@ -35,8 +35,8 @@ const router = useRouter()
     setIsUpdating(true);
     const result = await updateOrderStatus(id, newStatus);
     if (result.success) {
-     router.refresh()
-     setSelectedOrder(null)
+      router.refresh()
+      setSelectedOrder(null)
     }
     setIsUpdating(false);
   };
@@ -53,7 +53,7 @@ const router = useRouter()
 
       {/* Header */}
       <div>
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-accent-content">
           Order <span className="text-primary-color">Management</span>
         </h2>
         <p className="text-gray-500 text-xs sm:text-sm mt-1">
@@ -68,7 +68,7 @@ const router = useRouter()
           <input
             type="text"
             placeholder="Search..."
-            className="w-full bg-[#11151c] border border-white/5 rounded-lg py-2 pl-9 pr-3 text-xs placeholder:text-accent-content text-accent-content sm:text-sm outline-none focus:border-[#d4af37]/50"
+            className="w-full bg-[#11151c] border border-accent-content/5 rounded-lg py-2 pl-9 pr-3 text-xs placeholder:text-accent-content text-accent-content sm:text-sm outline-none focus:border-[#d4af37]/50"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
@@ -78,7 +78,7 @@ const router = useRouter()
       <>
         <div className="block xl:hidden space-y-3">
           {filteredOrders.map(order => (
-            <div key={order._id} className="bg-[#11151c] border border-white/5 rounded-xl p-4 space-y-2">
+            <div key={order._id} className="bg-[#11151c] border border-accent-content/5 rounded-xl p-4 space-y-2">
 
               <div className="flex justify-between items-center">
                 <p className="text-xs text-[#d4af37] font-mono">
@@ -89,7 +89,7 @@ const router = useRouter()
                 </span>
               </div>
 
-              <p className="text-white font-semibold text-sm">
+              <p className="text-accent-content font-semibold text-sm">
                 {order.customerName}
               </p>
 
@@ -101,21 +101,21 @@ const router = useRouter()
                 📅 {new Date(order.date).toLocaleDateString()}
               </p>
 
-              <p className="text-sm text-white font-bold">
+              <p className="text-sm text-accent-content font-bold">
                 ৳{order.totalPrice}
               </p>
 
               <div className="flex justify-end gap-2 pt-2">
                 <button
                   onClick={() => setSelectedOrder(order)}
-                  className="p-2 bg-white/5 rounded-lg"
+                  className="p-2 bg-accent-content/5 rounded-lg"
                 >
                   <Eye size={14} />
                 </button>
 
                 <button
                   onClick={() => handleDelete(order._id)}
-                  className="p-2 bg-white/5 rounded-lg"
+                  className="p-2 bg-accent-content/5 rounded-lg"
                 >
                   <Trash2 size={14} />
                 </button>
@@ -126,12 +126,12 @@ const router = useRouter()
         </div>
 
         {/* ================= DESKTOP TABLE ================= */}
-        <div className="hidden xl:block bg-[#11151c] border border-white/5 rounded-xl overflow-hidden">
+        <div className="hidden xl:block bg-[#11151c] border border-accent-content/5 rounded-xl overflow-hidden">
 
           <div className="w-full overflow-x-auto">
             <table className="w-full text-left">
 
-              <thead className="bg-[#0a0c12] text-gray-500 text-[10px] uppercase border-b border-white/5">
+              <thead className="bg-[#0a0c12] text-gray-500 text-[10px] uppercase border-b border-accent-content/5">
                 <tr>
                   <th className="px-6 py-4">Order ID</th>
                   <th className="px-6 py-4">Customer</th>
@@ -143,15 +143,15 @@ const router = useRouter()
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-white/5">
+              <tbody className="divide-y divide-accent-content/5">
                 {filteredOrders.map(order => (
-                  <tr key={order._id} className="hover:bg-white/5">
+                  <tr key={order._id} className="hover:bg-accent-content/5">
 
                     <td className="px-6 py-4 text-xs text-primary-color font-mono">
                       {(order._id || "").slice(0, 8)}
                     </td>
 
-                    <td className="px-6 py-4 text-sm text-white">
+                    <td className="px-6 py-4 text-sm text-accent-content">
                       {order.customerName}
                     </td>
 
@@ -159,7 +159,7 @@ const router = useRouter()
                       {new Date(order.date).toLocaleDateString()}
                     </td>
 
-                    <td className="px-6 py-4 text-sm text-white font-bold">
+                    <td className="px-6 py-4 text-sm text-accent-content font-bold">
                       ৳{order.totalPrice}
                     </td>
 
@@ -204,12 +204,12 @@ const router = useRouter()
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm">
 
           {/* Modal Box */}
-          <div className="w-full max-w-lg sm:max-w-2xl bg-[#11151c] border border-white/10 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg sm:max-w-2xl bg-[#11151c] border border-accent-content/10 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
 
             {/* Header */}
-            <div className="flex justify-between items-center p-4 sm:p-6 border-b border-white/10">
+            <div className="flex justify-between items-center p-4 sm:p-6 border-b border-accent-content/10">
               <div>
-                <h3 className="text-lg sm:text-xl font-bold text-white">
+                <h3 className="text-lg sm:text-xl font-bold text-accent-content">
                   Order Details
                 </h3>
                 <p className="text-[10px] sm:text-xs font-mono text-gray-400 mt-1 break-all">
@@ -219,7 +219,7 @@ const router = useRouter()
 
               <button
                 onClick={() => setSelectedOrder(null)}
-                className="p-2 text-gray-400 hover:text-accent-content bg-white/5 rounded-full"
+                className="p-2 text-gray-400 hover:text-accent-content bg-accent-content/5 rounded-full"
               >
                 <X size={18} />
               </button>
@@ -229,21 +229,21 @@ const router = useRouter()
             <div className="p-4 sm:p-6 space-y-6">
 
               {/* Customer Info */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-[#080808] p-4 rounded-xl border border-white/5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-[#080808] p-4 rounded-xl border border-accent-content/5">
 
                 <div>
                   <p className="text-[10px] text-gray-500 uppercase mb-1">Customer</p>
-                  <p className="text-sm text-white">{selectedOrder.customerName}</p>
+                  <p className="text-sm text-accent-content">{selectedOrder.customerName}</p>
                 </div>
 
                 <div>
                   <p className="text-[10px] text-gray-500 uppercase mb-1">Phone</p>
-                  <p className="text-sm text-white">{selectedOrder.phone}</p>
+                  <p className="text-sm text-accent-content">{selectedOrder.phone}</p>
                 </div>
 
                 <div className="sm:col-span-2">
                   <p className="text-[10px] text-gray-500 uppercase mb-1">Address</p>
-                  <p className="text-sm text-white wrap-break-word">
+                  <p className="text-sm text-accent-content wrap-break-word">
                     {selectedOrder.address}, {selectedOrder.city}, {selectedOrder.district}
                   </p>
                 </div>
@@ -260,11 +260,11 @@ const router = useRouter()
 
               {/* Product */}
               <div>
-                <h4 className="text-xs sm:text-sm font-bold text-white mb-3 uppercase">
+                <h4 className="text-xs sm:text-sm font-bold text-accent-content mb-3 uppercase">
                   Ordered Item
                 </h4>
 
-                <div className="flex flex-col sm:flex-row gap-3 sm:items-center bg-[#080808] p-4 rounded-xl border border-white/5">
+                <div className="flex flex-col sm:flex-row gap-3 sm:items-center bg-[#080808] p-4 rounded-xl border border-accent-content/5">
 
                   {selectedOrder.image && (
                     <img
@@ -275,12 +275,12 @@ const router = useRouter()
                   )}
 
                   <div className="flex-1">
-                    <p className="text-white font-semibold text-sm">
+                    <p className="text-accent-content font-semibold text-sm">
                       {selectedOrder.name || "Unknown Product"}
                     </p>
 
                     <div className="flex flex-wrap gap-3 mt-2 text-xs text-gray-400">
-                      <p>Qty: <span className="text-white">{selectedOrder.quantity}</span></p>
+                      <p>Qty: <span className="text-accent-content">{selectedOrder.quantity}</span></p>
                       <p>Price: <span className="text-[#d4af37]">৳{selectedOrder.totalPrice}</span></p>
                     </div>
                   </div>
@@ -288,8 +288,8 @@ const router = useRouter()
               </div>
 
               {/* Status Update */}
-              <div className="border-t border-white/10 pt-4">
-                <h4 className="text-xs sm:text-sm font-bold text-white mb-3 uppercase">
+              <div className="border-t border-accent-content/10 pt-4">
+                <h4 className="text-xs sm:text-sm font-bold text-accent-content mb-3 uppercase">
                   Update Status
                 </h4>
 
@@ -308,7 +308,7 @@ const router = useRouter()
                           status: e.target.value
                         })
                       }
-                      className="w-full bg-[#080808] border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none"
+                      className="w-full bg-[#080808] border border-accent-content/10 rounded-lg px-3 py-2 text-sm text-accent-content outline-none"
                     >
                       <option value="Pending">Pending</option>
                       <option value="Processing">Processing</option>
