@@ -2,22 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShoppingBag, ArrowRight, Zap } from "lucide-react";
 import { getHeroBanner } from "../../../action/heroBanner";
-
-const categories = [
-  { label: "Fashion", emoji: "👗" },
-  { label: "Tech", emoji: "📱" },
-  { label: "Home", emoji: "🏠" },
-  { label: "Beauty", emoji: "💄" },
-  { label: "Toys", emoji: "🧸" },
-];
-
-// const stats = [
-//   { target: 50000, suffix: "K+", divisor: 1000, label: "Products" },
-//   { target: 20000, suffix: "K+", divisor: 1000, label: "Customers" },
-//   { target: 4.9,   suffix: "★",  divisor: 1,    label: "Rating", decimal: 1 },
-//   { target: 99,    suffix: "%",  divisor: 1,    label: "Satisfaction" },
-// ];
-
 export default async function Hero() {
   const banner = await getHeroBanner();
 
@@ -86,47 +70,6 @@ export default async function Hero() {
                 width={840}
                 height={500}
               />
-              <div className="absolute inset-0 bg-linear-to-t from-[#0f0f0f] via-transparent to-transparent" />
-
-              {/* Floating Badges */}
-              <div className="absolute top-6 right-6 flex flex-col gap-2 items-end">
-                <span className="bg-primary-color text-black text-[12px] font-black px-4 py-1.5 rounded-full shadow-xl animate-bounce">
-                  UP TO 70% OFF
-                </span>
-                <span className="bg-accent/60 backdrop-blur-md text-accent-content text-[10px] font-bold px-3 py-1.5 rounded-full border border-accent-content/20">
-                  Limited Edition
-                </span>
-              </div>
-            </div>
-
-            {/* Card Content Overlay */}
-            <div className="hidden md:block absolute bottom-10 left-10 right-10">
-              <div className="bg-accent-content/5 backdrop-blur-xl border border-accent-content/10 p-6 rounded-2xl">
-                <h3 className="text-accent-content font-bold text-xl mb-2">Curated Collections</h3>
-                <p className="text-gray-400 text-sm mb-5 leading-snug">Explore hand-picked items tailored for your lifestyle.</p>
-
-                <div className="flex flex-wrap gap-2">
-                  {categories.map((cat) => (
-                    <span
-                      key={cat.label}
-                      className="bg-accent border border-accent-content/5 text-gray-200 text-[11px] px-3 py-1.5 rounded-lg hover:bg-primary-color hover:text-black transition-colors cursor-pointer font-medium"
-                    >
-                      {cat.emoji} {cat.label}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Small Decorative Card */}
-          <div className="absolute -bottom-6 -left-6 bg--accent-content p-4 rounded-2xl shadow-2xl hidden md:flex items-center gap-4 animate-float border-4 border-accent-content">
-            <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-              <Zap className="w-5 h-5 text-btn-color fill-current" />
-            </div>
-            <div>
-              <p className="text-accent-content text-xs font-black uppercase leading-none">Fast Delivery</p>
-              <p className="text-gray-500 text-[10px]">Within 24 Hours</p>
             </div>
           </div>
         </div>

@@ -70,10 +70,6 @@ const SaleCountDown = () => {
           <span className="text-xl font-bold text-[#AAAAAA] flex items-center">:</span>
           {timeBlock(timeLeft.seconds, "SECONDS")}
         </div>
-
-        <Link href="#products" className="inline-block bg-primary-color hover:bg-accent-content text-accent font-bold py-3 px-8 rounded shadow-lg transition-colors">
-          Claim Your Discount
-        </Link>
       </div>
     </div>
   );

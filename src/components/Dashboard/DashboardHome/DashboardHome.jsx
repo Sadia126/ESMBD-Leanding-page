@@ -29,7 +29,7 @@ export default function DashboardHome({ orders }) {
     const completedOrders = useMemo(() => {
         return orders?.filter(order => order.status === 'Completed').length;
     }, [orders]);
-    const totalProducts = useMemo(() => {
+    const totalOrders = useMemo(() => {
         return orders?.length;
     }, [orders]);
 
@@ -38,7 +38,7 @@ export default function DashboardHome({ orders }) {
         { id: 1, name: 'Total Revenue', value: `৳${totalRevenue}`, icon: <DollarSign size={24} />, color: 'text-green-500' },
         { id: 2, name: 'Pending Orders', value: pendingOrders, icon: <Clock size={24} />, color: 'text-yellow-500' },
         { id: 3, name: 'Completed Orders', value: completedOrders, icon: <CheckCircle2 size={24} />, color: 'text-btn-color' },
-        { id: 4, name: 'Total Products', value: totalProducts, icon: <ShoppingCart size={24} />, color: 'text-[#d4af37]' },
+        { id: 4, name: 'Total Orders', value: totalOrders, icon: <ShoppingCart size={24} />, color: 'text-primary-color' },
     ];
     const handleDelete = async (id) => {
         const confirm = await Swal.fire({
