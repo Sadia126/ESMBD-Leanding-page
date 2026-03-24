@@ -31,7 +31,7 @@
 /* header style  */
 
 .MuiToolbar-root {
-  @apply bg-primary-color !;
+  @apply bg-primary-color;
 }
 
 
@@ -40,7 +40,7 @@
 }
 
 .MuiInputBase-root {
-  @apply border-2 ! border-primary-color ! outline-none ! rounded-lg ! shadow-sm ! w-full ! h-13 !;
+  @apply border-2 border-primary-color outline-none rounded-lg shadow-sm w-full h-13;
 }
 
 
