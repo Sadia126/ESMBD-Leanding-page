@@ -1,9 +1,27 @@
 "use client";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useEffect, useState, useCallback } from "react";
+import { getSaleCountDown } from "../../../action/saleCountDown";
 
-const CountdownTimer = ({ targetDate }) => {
-  const calculateTimeLeft = () => {
-    const diff = new Date(targetDate) - new Date();
+const SaleCountDown = () => {
+  const [targetDate, setTargetDate] = useState("2026-03-20T09:47:46.452Z");
+  const [title, setTitle] = useState("Limited Time Offer - Up to 40% Off!");
+  const [description, setDescription] = useState("Don't miss out on this exclusive offer. Hurry, the clock is ticking!");
+
+  useEffect(() => {
+    async function fetchConfig() {
+      const data = await getSaleCountDown();
+      if (data) {
+        if (data.title) setTitle(data.title);
+        if (data.description) setDescription(data.description);
+        if (data.targetDate) setTargetDate(data.targetDate);
+      }
+    }
+    fetchConfig();
+  }, []);
+
+  const calculateTimeLeft = useCallback(() => {
+    const diff = new Date(targetDate).getTime() - new Date().getTime();
     if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
     return {
       days: Math.floor(diff / (1000 * 60 * 60 * 24)),
@@ -11,18 +29,19 @@ const CountdownTimer = ({ targetDate }) => {
       minutes: Math.floor((diff / 1000 / 60) % 60),
       seconds: Math.floor((diff / 1000) % 60),
     };
-  };
+  }, [targetDate]);
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
+    setTimeLeft(calculateTimeLeft());
     const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, [calculateTimeLeft]);
 
   const timeBlock = (value, label) => (
     <div className="flex flex-col items-center">
-      <div className="bg-[#2C2B30] px-6 py-4 rounded-lg shadow-md text-[#FFC900] text-2xl font-mono min-w-[60px]">
+      <div className="bg-[#2C2B30] px-6 py-4 rounded-lg shadow-md text-primary-color text-2xl font-mono min-w-[60px]">
         {value.toString().padStart(2, "0")}
       </div>
       <div className="text-xs text-[#AAAAAA] mt-1">{label}</div>
@@ -32,14 +51,14 @@ const CountdownTimer = ({ targetDate }) => {
   return (
     <div className="w-full bg-[#1C1A18] py-16 px-4 text-center">
       <div className="max-w-6xl mx-auto rounded-xl">
-        <p className="inline-block px-3 py-1 rounded-full text-sm mb-3 bg-[#622c1c] text-[#F8C8A0]">
+        <p className="inline-block px-3 py-1 rounded-full text-sm mb-3 bg-[#622c1c] text-primary-color">
           🔥 Limited Time Only
         </p>
-        <h1 className="text-4xl font-bold mb-2 text-white">
-          Limited Time Offer - Up to 40% Off!
+        <h1 className="text-2xl md:text-4xl font-bold mb-2 text-accent-content">
+          {title}
         </h1>
         <p className="mb-8 text-[#B0B0B0] text-lg">
-          Don't miss out on this exclusive offer. Hurry, the clock is ticking!
+          {description}
         </p>
 
         <div className="flex justify-center flex-wrap gap-4 mb-8">
@@ -51,17 +70,9 @@ const CountdownTimer = ({ targetDate }) => {
           <span className="text-xl font-bold text-[#AAAAAA] flex items-center">:</span>
           {timeBlock(timeLeft.seconds, "SECONDS")}
         </div>
-
-        <button className="bg-[#FFC900] hover:bg-[#FFD633] text-black font-bold py-3 px-8 rounded shadow-lg transition-colors">
-          Claim Your Discount
-        </button>
       </div>
     </div>
   );
 };
 
-export default function CountdownPage() {
-  const target = new Date();
-  target.setDate(target.getDate() + 6); // 6 days from now
-  return <CountdownTimer targetDate={target} />;
-}
+export default SaleCountDown

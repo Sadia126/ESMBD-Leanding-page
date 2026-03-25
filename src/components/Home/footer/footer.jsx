@@ -21,22 +21,22 @@ const paymentMethods = ["bKash", "Nagad", "Visa", "MasterCard", "COD"];
 
 export default function Footer() {
   return (
-    <footer className="bg-black/90 backdrop-blur-xl border-t border-white/8 text-white">
+    <footer className="bg-black/90 backdrop-blur-xl border-t border-accent-content/8 text-accent-content">
 
-     
+
 
       {/* ===== MAIN GRID ===== */}
-      <div className="px-[4%] py-6 flex justify-between gap-10">
+      <div className="px-[4%] py-6 flex flex-col md:flex-row justify-between gap-10">
 
         {/* Brand Info */}
         <div>
-          <div className="flex-1 items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-linear-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center border border-white/10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-linear-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center border border-accent-content/10">
               <ShoppingCart className="w-5 h-5 text-primary-color" />
             </div>
             <div>
               <div className="text-base font-bold">
-                <span className="text-white">EASY</span>
+                <span className="text-accent-content">EASY</span>
                 <span className="text-primary-color">SHOPPINGMALL</span>
               </div>
               <div className="text-[11px] text-gray-500">Best deals every day</div>
@@ -47,24 +47,24 @@ export default function Footer() {
             Awesome grocery store website. Quality products, unbeatable prices, fast delivery across Bangladesh.
           </p>
 
-         
+
         </div>
-         {/* Contact Info */}
-          <div className="space-y-3">
-            {contactInfo.map((item, i) => (
-              <div key={i} className="flex items-center gap-3 text-sm text-gray-400">
-                <item.icon className="w-4 h-4 text-primary-color shrink-0" />
-                {item.label && (
-                  <span className="text-gray-500 text-xs">{item.label}</span>
-                )}
-                <span>{item.text}</span>
-              </div>
-            ))}
-          </div>
+        {/* Contact Info */}
+        <div className="space-y-3">
+          {contactInfo.map((item, i) => (
+            <div key={i} className="flex items-center gap-3 text-sm text-gray-400">
+              <item.icon className="w-4 h-4 text-primary-color shrink-0" />
+              {item.label && (
+                <span className="text-gray-500 text-xs">{item.label}</span>
+              )}
+              <span>{item.text}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* ===== BOTTOM BAR ===== */}
-      <div className="border-t border-white/8 px-[4%] py-5 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="border-t border-accent-content/8 px-[4%] py-5 flex flex-col md:flex-row items-center justify-between gap-4">
 
         {/* Copyright */}
         <p className="text-xs text-gray-600">
@@ -76,7 +76,7 @@ export default function Footer() {
           {paymentMethods.map((method) => (
             <span
               key={method}
-              className="text-xs bg-white/5 border border-white/8 px-3 py-1 rounded-lg text-gray-500 hover:border-primary-color hover:text-primary-color transition"
+              className="text-xs bg-accent-content/5 border border-accent-content/8 px-3 py-1 rounded-lg text-gray-500 hover:border-primary-color hover:text-primary-color transition"
             >
               {method}
             </span>
@@ -91,7 +91,7 @@ export default function Footer() {
               key={s.name}
               href={s.href}
               aria-label={s.label}
-              className="w-8 h-8 rounded-xl bg-white/5 border border-white/8 flex items-center justify-center text-xs font-bold text-gray-500 hover:bg-primary-color hover:border-primary-color hover:text-accent transition-all"
+              className="w-8 h-8 rounded-xl bg-accent-content/5 border border-accent-content/8 flex items-center justify-center text-xs font-bold text-gray-500 hover:bg-primary-color hover:border-primary-color hover:text-accent transition-all"
             >
               {s.name}
             </Link>
@@ -99,7 +99,7 @@ export default function Footer() {
         </div>
       </div>
 
-     
+
 
     </footer>
   );
